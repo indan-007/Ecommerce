@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Features Demo</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <!-- Include any other necessary stylesheets -->
+    <style>
+        /* Basic styles for demo */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .demo-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5956e9;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .demo-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #5956e9;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn:hover {
+            background-color: #4745c0;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            color: #5956e9;
+            border-bottom: 2px solid #5956e9;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .code-block {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card {
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        
+        .product-image {
+            height: 150px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .features-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .features-table th, .features-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .features-table th {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <header class="demo-header">
+        <div class="logo">E-Commerce</div>
+        <nav class="demo-nav">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Products</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">Cart (0)</a>
+            <!-- AI button will be added here automatically by script -->
+        </nav>
+    </header>
+
+    <div class="demo-container">
+        <div class="demo-section">
+            <h1>AI Recommendations Demo</h1>
+            <p>This page demonstrates how the AI button and recommendations system can be easily added to any page on your e-commerce site.</p>
+            <p><strong>Look for the AI button in the navigation bar above!</strong> Click it to see the recommendations dropdown.</p>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Implementation Options</h2>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="simple">Simple Implementation</button>
+                <button class="tab" data-tab="advanced">Advanced Implementation</button>
+                <button class="tab" data-tab="features">Features Comparison</button>
+            </div>
+            
+            <div class="tab-content active" data-content="simple">
+                <h3>Simple AI Button</h3>
+                <p>The quickest way to add AI features to your site. Just add one line of code to any HTML page:</p>
+                <div class="code-block">
+                    &lt;script src="js/ai-button.js"&gt;&lt;/script&gt;
+                </div>
+                <p>This will:</p>
+                <ul>
+                    <li>Add an AI button to your navigation automatically</li>
+                    <li>Show product recommendations in a dropdown</li>
+                    <li>Work without any HTML modifications</li>
+                </ul>
+                <p>Perfect for quickly adding AI features to existing pages.</p>
+                <button class="btn" id="reset-demo">Reset Demo</button>
+            </div>
+            
+            <div class="tab-content" data-content="advanced">
+                <h3>Full AI Integration</h3>
+                <p>For a complete AI-powered shopping experience, implement the full recommendation system:</p>
+                <div class="code-block">
+                    &lt;!-- In the head section --&gt;<br>
+                    &lt;link rel="stylesheet" href="styles/navbar-ai.css"&gt;<br><br>
+                    
+                    &lt;!-- Before closing body tag --&gt;<br>
+                    &lt;script src="js/ai-recommendations.js"&gt;&lt;/script&gt;<br>
+                    &lt;script src="js/navbar-ai-integration.js"&gt;&lt;/script&gt;
+                </div>
+                <p>Benefits of the full integration:</p>
+                <ul>
+                    <li>More advanced product recommendations based on browsing history</li>
+                    <li>Category affinity calculations</li>
+                    <li>Purchase tracking</li>
+                    <li>Enhanced personalization over time</li>
+                    <li>Better styling integration with your site's theme</li>
+                </ul>
+                <p>This is recommended for production use.</p>
+                <button class="btn" id="load-full-ai">Load Full AI System</button>
+            </div>
+            
+            <div class="tab-content" data-content="features">
+                <h3>Features Comparison</h3>
+                <table class="features-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Simple Implementation</th>
+                            <th>Full AI System</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Easy installation</td>
+                            <td>✅ One line of code</td>
+                            <td>✅ Multiple components</td>
+                        </tr>
+                        <tr>
+                            <td>Works without HTML changes</td>
+                            <td>✅ Automatic</td>
+                            <td>❌ Requires HTML updates</td>
+                        </tr>
+                        <tr>
+                            <td>Personalized recommendations</td>
+                            <td>✅ Basic</td>
+                            <td>✅ Advanced</td>
+                        </tr>
+                        <tr>
+                            <td>Purchase tracking</td>
+                            <td>❌ Not included</td>
+                            <td>✅ Included</td>
+                        </tr>
+                        <tr>
+                            <td>Category affinities</td>
+                            <td>❌ Not included</td>
+                            <td>✅ Included</td>
+                        </tr>
+                        <tr>
+                            <td>Styling customization</td>
+                            <td>⚠️ Limited</td>
+                            <td>✅ Full CSS control</td>
+                        </tr>
+                        <tr>
+                            <td>Page-specific recommendations</td>
+                            <td>❌ Not included</td>
+                            <td>✅ Included</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Test Products</h2>
+            <p>View these products to see how the AI system learns from your browsing:</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #5956e9;"></div>
+                    <h3>Bluetooth Headphones</h3>
+                    <p>$59.99</p>
+                    <button class="btn product-view-btn" data-id="1" data-category="electronics">View Details</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #34c759;"></div>
+                    <h3>Smart Watch</h3>
+                    <p>$129.99</p>
+                    <button class="btn product-view-btn" data-id="2" data-category="electronics">View Details</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #ff9500;"></div>
+                    <h3>Wireless Charger</h3>
+                    <p>$29.99</p>
+                    <button class="btn product-view-btn" data-id="3" data-category="electronics">View Details</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-color: #5ac8fa;"></div>
+                    <h3>Laptop Stand</h3>
+                    <p>$24.99</p>
+                    <button class="btn product-view-btn" data-id="4" data-category="accessories">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update content
+                const tabId = tab.getAttribute('data-tab');
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.querySelector(`.tab-content[data-content="${tabId}"]`).classList.add('active');
+            });
+        });
+        
+        // Product view simulation
+        document.querySelectorAll('.product-view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const productId = btn.getAttribute('data-id');
+                const category = btn.getAttribute('data-category');
+                const productName = btn.parentElement.querySelector('h3').textContent;
+                
+                // Simulate product view
+                alert(`Viewing: ${productName}\n\nThis action would be tracked by the AI system to improve your recommendations!`);
+                
+                // If full AI is loaded, track the view
+                if (window.trackProductView) {
+                    window.trackProductView(productId, category);
+                    // Update AI button badge if available
+                    if (window.updateRecommendationsCount) {
+                        window.updateRecommendationsCount();
+                    }
+                } else {
+                    // Store in localStorage for simple implementation
+                    let viewed = JSON.parse(localStorage.getItem('viewed_products') || '[]');
+                    viewed.push({
+                        id: productId,
+                        category: category,
+                        name: productName,
+                        timestamp: Date.now()
+                    });
+                    localStorage.setItem('viewed_products', JSON.stringify(viewed));
+                }
+            });
+        });
+        
+        // Reset demo button
+        document.getElementById('reset-demo').addEventListener('click', () => {
+            localStorage.removeItem('viewed_products');
+            localStorage.removeItem('category_affinities');
+            localStorage.removeItem('purchased_products');
+            alert('Demo reset! All browsing history and preferences have been cleared.');
+            location.reload();
+        });
+        
+        // Load full AI system
+        document.getElementById('load-full-ai').addEventListener('click', function() {
+            // Remove simple AI button if it exists
+            const existingBtn = document.querySelector('.ai-button');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+            
+            // Load full AI system
+            const css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'styles/navbar-ai.css';
+            document.head.appendChild(css);
+            
+            const script1 = document.createElement('script');
+            script1.src = 'js/ai-recommendations.js';
+            document.body.appendChild(script1);
+            
+            script1.onload = function() {
+                const script2 = document.createElement('script');
+                script2.src = 'js/navbar-ai-integration.js';
+                document.body.appendChild(script2);
+                
+                alert('Full AI recommendation system has been loaded!');
+            };
+            
+            this.textContent = 'Full AI System Loaded';
+            this.disabled = true;
+        });
+    </script>
+    
+    <!-- Include the simple AI button -->
+    <script src="js/ai-button.js"></script>
+</body>
+</html> 

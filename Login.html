@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up - EZTrip</title>
+    <link rel="stylesheet" href="Login.css">
+    <link rel="shortcut icon" type="x-icon" href="Assets/LOGO.png">
+
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="public/styles/navbar-auth.css">
+<!-- Add QR Code library -->
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script src="script.js"></script>
+<script src="darkmode.js"></script>
+<script src="change_color.js"></script>
+
+</head>
+
+<body>
+
+    <script src="Login.js"></script>
+
+    <div class="video-container">S
+        <video autoplay muted loop id="background-video">
+            <source src="EZ Globe.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="content">
+            <!-- <div class="back"></div> -->
+            <pre class="Explore"> Uncover the beauty of yourself!</pre>
+        </div>
+        <div class="split">
+            <div class="welcomeback">
+"Welcome back!" We're excited to see you again.</div>
+            <!-- <div class="name"><input class="name1" placeholder="Name" type="text"></div> -->
+            <div class="Google"><input placeholder="Google Account" type="email" class="google">
+                <div class="Mobile"><input placeholder="Mobile Number" type="text" class="mobile">
+                </div>
+                <div class="Signup"><button class="signup">Login</button>
+                </div>
+                <div class="Login1">Don't have an account? <a href="Signup.html" class="login1">Sign up</a></div>
+    </div>
+
+
+            </div>
+
+        </script>
+
+        <!-- Add your existing scripts here -->
+        <script>
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+    
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.classList.add(savedTheme);
+                themeToggle.checked = savedTheme === 'dark-theme';
+            }
+    
+            // Theme toggle functionality
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark-theme');
+                } else {
+                    body.classList.remove('dark-theme');
+                    localStorage.setItem('theme', '');
+                }
+            });
+        </script>
+
+</body>
+
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Navbar Features Demo</title>
+    <!-- Add necessary stylesheets -->
+    <link rel="stylesheet" href="styles/navbar-ai.css">
+    <style>
+        /* Basic styles for the demo page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        /* Clear and visible header with prominent navbar */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            position: relative;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #5956e9;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Make the AI button extra visible */
+        .nav-link.ai-nav-item {
+            background-color: #5956e9;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        h2 {
+            color: #5956e9;
+            margin-top: 0;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: R0px;
+            margin-top: 20px;
+        }
+        
+        .product-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        
+        .product-image {
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5956e9;
+            font-size: 40px;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+        
+        .product-price {
+            color: #5956e9;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+        
+        .view-btn {
+            display: inline-block;
+            background-color: #5956e9;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        /* Instructions section */
+        .instructions {
+            background-color: #fffaeb;
+            border-left: 4px solid #ffcc00;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* Utilities */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-10 {
+            margin-bottom: 10px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">AI Demo Shop</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Products</a>
+                <a href="#" class="nav-link">Categories</a>
+                
+                <!-- This is where our AI button will appear -->
+                <a href="#" class="nav-link ai-nav-item">
+                    <span class="ai-icon">🧠</span>
+                    <span class="ai-label">AI</span>
+                    <span class="ai-badge">5</span>
+                </a>
+                
+                <a href="#" class="nav-link">Cart (0)</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1 class="text-center">AI Navbar Features</h1>
+            
+            <div class="instructions">
+                <h3>👆 Click the AI button in the navbar above</h3>
+                <p>The AI button in the purple background should be clearly visible in the navigation bar. 
+                   Click it to see the AI recommendations dropdown with personalized suggestions!</p>
+            </div>
+            
+            <p>This demo showcases the AI recommendation features integrated directly in the navbar. 
+               The system automatically tracks your product views and provides personalized recommendations.</p>
+        </div>
+        
+        <div class="card">
+            <h2>Featured Products</h2>
+            <p>Click "View Details" on any product to simulate viewing it. This action will be tracked by the AI system
+               to generate better recommendations. Try viewing multiple products and then check the AI button again!</p>
+            
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-item">
+                    <div class="product-image" style="background-color: #e9f5ff;">🎧</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Bluetooth Headphones</h3>
+                        <p class="product-price">$59.99</p>
+                        <a href="#" class="view-btn" data-product-id="1" data-category="electronics">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-item">
+                    <div class="product-image" style="background-color: #f0fff4;">⌚</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Smart Watch</h3>
+                        <p class="product-price">$129.99</p>
+                        <a href="#" class="view-btn" data-product-id="2" data-category="electronics">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-item">
+                    <div class="product-image" style="background-color: #fff5f5;">📱</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Smartphone Holder</h3>
+                        <p class="product-price">$24.99</p>
+                        <a href="#" class="view-btn" data-product-id="3" data-category="accessories">View Details</a>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-item">
+                    <div class="product-image" style="background-color: #f6f6ff;">💻</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Laptop Stand</h3>
+                        <p class="product-price">$39.99</p>
+                        <a href="#" class="view-btn" data-product-id="4" data-category="accessories">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load AI recommendation scripts -->
+    <script>
+        // Simulate a simple product database
+        const products = [
+            { id: 1, name: "Bluetooth Headphones", price: 59.99, category: "electronics", image: "🎧" },
+            { id: 2, name: "Smart Watch", price: 129.99, category: "electronics", image: "⌚" },
+            { id: 3, name: "Smartphone Holder", price: 24.99, category: "accessories", image: "📱" },
+            { id: 4, name: "Laptop Stand", price: 39.99, category: "accessories", image: "💻" },
+            { id: 5, name: "Wireless Charger", price: 49.99, category: "electronics", image: "🔌" },
+            { id: 6, name: "Earbuds", price: 89.99, category: "electronics", image: "🎧" },
+            { id: 7, name: "Tablet Case", price: 29.99, category: "accessories", image: "📱" },
+            { id: 8, name: "Power Bank", price: 34.99, category: "electronics", image: "🔋" }
+        ];
+        
+        // Simple AI recommendations object
+        window.aiRecommendations = {
+            userHistory: {
+                viewed: []
+            },
+            categoryAffinities: {},
+            
+            // Track product view
+            trackView: function(productId, category) {
+                const existingIndex = this.userHistory.viewed.findIndex(item => item.id == productId);
+                
+                if (existingIndex >= 0) {
+                    // Update existing entry
+                    this.userHistory.viewed[existingIndex].viewCount++;
+                    this.userHistory.viewed[existingIndex].lastViewed = new Date();
+                } else {
+                    // Add new entry
+                    this.userHistory.viewed.push({
+                        id: productId,
+                        category: category,
+                        viewCount: 1,
+                        lastViewed: new Date()
+                    });
+                }
+                
+                // Update category affinities
+                this.categoryAffinities[category] = (this.categoryAffinities[category] || 0) + 1;
+                
+                // Save to localStorage
+                localStorage.setItem('ai_user_history', JSON.stringify(this.userHistory));
+                localStorage.setItem('ai_category_affinities', JSON.stringify(this.categoryAffinities));
+                
+                // Update UI
+                this.updateBadge();
+            },
+            
+            // Get recommendations based on history
+            getRecommendations: function(limit = 4) {
+                if (this.userHistory.viewed.length === 0) {
+                    // No history, return random products
+                    return this.shuffleArray([...products]).slice(0, limit);
+                }
+                
+                // Get preferred categories
+                const categories = Object.keys(this.categoryAffinities).sort(
+                    (a, b) => this.categoryAffinities[b] - this.categoryAffinities[a]
+                );
+                
+                // Get viewed product IDs
+                const viewedIds = this.userHistory.viewed.map(item => parseInt(item.id));
+                
+                // Recommend products from preferred categories that haven't been viewed
+                let recommendations = products.filter(
+                    product => !viewedIds.includes(product.id) && 
+                               categories.includes(product.category)
+                );
+                
+                // If we don't have enough, add some random products
+                if (recommendations.length < limit) {
+                    const remainingProducts = products.filter(
+                        product => !viewedIds.includes(product.id) && 
+                                  !recommendations.find(r => r.id === product.id)
+                    );
+                    recommendations = recommendations.concat(
+                        this.shuffleArray(remainingProducts).slice(0, limit - recommendations.length)
+                    );
+                }
+                
+                return this.shuffleArray(recommendations).slice(0, limit);
+            },
+            
+            // Get recently viewed products
+            getRecentlyViewed: function(limit = 4) {
+                return this.userHistory.viewed
+                    .sort((a, b) => new Date(b.lastViewed) - new Date(a.lastViewed))
+                    .slice(0, limit)
+                    .map(item => products.find(p => p.id == item.id))
+                    .filter(item => item); // Filter out any undefined products
+            },
+            
+            // Clear history
+            clearHistory: function() {
+                this.userHistory.viewed = [];
+                this.categoryAffinities = {};
+                localStorage.removeItem('ai_user_history');
+                localStorage.removeItem('ai_category_affinities');
+                this.updateBadge();
+            },
+            
+            // Helper to shuffle array
+            shuffleArray: function(array) {
+                const newArray = [...array];
+                for (let i = newArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            },
+            
+            // Update the badge count
+            updateBadge: function() {
+                const badge = document.querySelector('.ai-badge');
+                if (badge) {
+                    const count = this.userHistory.viewed.length > 0 ? 
+                        Math.min(this.userHistory.viewed.length + 2, 9) : 5;
+                    badge.textContent = count;
+                }
+            },
+            
+            // Load saved data
+            loadFromStorage: function() {
+                try {
+                    const history = localStorage.getItem('ai_user_history');
+                    const affinities = localStorage.getItem('ai_category_affinities');
+                    
+                    if (history) this.userHistory = JSON.parse(history);
+                    if (affinities) this.categoryAffinities = JSON.parse(affinities);
+                    
+                    this.updateBadge();
+                } catch (e) {
+                    console.error('Error loading AI data from storage', e);
+                }
+            }
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            window.aiRecommendations.loadFromStorage();
+            
+            // Set up product view tracking
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const productId = this.getAttribute('data-product-id');
+                    const category = this.getAttribute('data-category');
+                    const product = products.find(p => p.id == productId);
+                    
+                    // Track the view
+                    window.aiRecommendations.trackView(productId, category);
+                    
+                    // Show message
+                    alert(`Viewing: ${product.name}\n\nThis product view has been tracked by the AI recommendation system!`);
+                });
+            });
+            
+            // Set up AI button click
+            const aiButton = document.querySelector('.ai-nav-item');
+            if (aiButton) {
+                aiButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove existing dropdown if there is one
+                    const existingDropdown = document.querySelector('.ai-dropdown');
+                    if (existingDropdown) {
+                        existingDropdown.remove();
+                    }
+                    
+                    // Create dropdown
+                    const dropdown = document.createElement('div');
+                    dropdown.className = 'ai-dropdown';
+                    dropdown.style.position = 'absolute';
+                    dropdown.style.top = '100%';
+                    dropdown.style.right = '0';
+                    dropdown.style.width = '320px';
+                    dropdown.style.backgroundColor = '#fff';
+                    dropdown.style.borderRadius = '8px';
+                    dropdown.style.boxShadow = '0 5px 20px rgba(0,0,0,0.15)';
+                    dropdown.style.zIndex = '1000';
+                    dropdown.style.marginTop = '10px';
+                    dropdown.style.maxHeight = '500px';
+                    dropdown.style.overflowY = 'auto';
+                    
+                    // Add dropdown header
+                    dropdown.innerHTML = `
+                        <div style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; font-size: 16px; color: #333;">AI Recommendations</h3>
+                            <button style="background: none; border: none; font-size: 20px; cursor: pointer;">×</button>
+                        </div>
+                        
+                        <div style="display: flex; border-bottom: 1px solid #eee;">
+                            <button data-tab="for-you" style="flex: 1; padding: 10px; border: none; background: none; cursor: pointer; font-weight: 600; color: #5956e9; border-bottom: 2px solid #5956e9;">For You</button>
+                            <button data-tab="recently-viewed" style="flex: 1; padding: 10px; border: none; background: none; cursor: pointer; color: #666;">Recently Viewed</button>
+                        </div>
+                        
+                        <div id="tab-for-you" style="padding: 15px;"></div>
+                        <div id="tab-recently-viewed" style="display: none; padding: 15px;"></div>
+                        
+                        <div style="padding: 15px; border-top: 1px solid #eee; text-align: center;">
+                            <button id="clear-history" style="background: none; border: none; color: #5956e9; cursor: pointer; font-size: 14px;">Clear History</button>
+                        </div>
+                    `;
+                    
+                    // Add to button
+                    this.style.position = 'relative';
+                    this.appendChild(dropdown);
+                    
+                    // Populate recommendations
+                    const forYouContainer = dropdown.querySelector('#tab-for-you');
+                    const recentlyViewedContainer = dropdown.querySelector('#tab-recently-viewed');
+                    
+                    // For You tab
+                    const recommendations = window.aiRecommendations.getRecommendations();
+                    if (recommendations.length > 0) {
+                        const recommendationsList = document.createElement('div');
+                        recommendations.forEach(product => {
+                            recommendationsList.innerHTML += `
+                                <div style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                                    <div style="width: 50px; height: 50px; background-color: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">
+                                        ${product.image}
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0 0 5px 0; font-weight: 500;">${product.name}</p>
+                                        <p style="margin: 0; font-size: 14px; color: #5956e9;">$${product.price}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        forYouContainer.appendChild(recommendationsList);
+                    } else {
+                        forYouContainer.innerHTML = `
+                            <p style="text-align: center; color: #999; padding: 20px 0;">
+                                Browse more products to get personalized recommendations!
+                            </p>
+                        `;
+                    }
+                    
+                    // Recently Viewed tab
+                    const recentlyViewed = window.aiRecommendations.getRecentlyViewed();
+                    if (recentlyViewed.length > 0) {
+                        const recentList = document.createElement('div');
+                        recentlyViewed.forEach(product => {
+                            recentList.innerHTML += `
+                                <div style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                                    <div style="width: 50px; height: 50px; background-color: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">
+                                        ${product.image}
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0 0 5px 0; font-weight: 500;">${product.name}</p>
+                                        <p style="margin: 0; font-size: 14px; color: #5956e9;">$${product.price}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        recentlyViewedContainer.appendChild(recentList);
+                    } else {
+                        recentlyViewedContainer.innerHTML = `
+                            <p style="text-align: center; color: #999; padding: 20px 0;">
+                                No recently viewed products.
+                            </p>
+                        `;
+                    }
+                    
+                    // Tab switching
+                    dropdown.querySelectorAll('[data-tab]').forEach(tab => {
+                        tab.addEventListener('click', function() {
+                            const tabId = this.getAttribute('data-tab');
+                            
+                            // Update tab styles
+                            dropdown.querySelectorAll('[data-tab]').forEach(t => {
+                                t.style.fontWeight = '400';
+                                t.style.color = '#666';
+                                t.style.borderBottom = 'none';
+                            });
+                            this.style.fontWeight = '600';
+                            this.style.color = '#5956e9';
+                            this.style.borderBottom = '2px solid #5956e9';
+                            
+                            // Show correct content
+                            if (tabId === 'for-you') {
+                                document.getElementById('tab-for-you').style.display = 'block';
+                                document.getElementById('tab-recently-viewed').style.display = 'none';
+                            } else {
+                                document.getElementById('tab-for-you').style.display = 'none';
+                                document.getElementById('tab-recently-viewed').style.display = 'block';
+                            }
+                        });
+                    });
+                    
+                    // Close button
+                    dropdown.querySelector('button').addEventListener('click', function() {
+                        dropdown.remove();
+                    });
+                    
+                    // Clear history
+                    dropdown.querySelector('#clear-history').addEventListener('click', function() {
+                        if (confirm('Are you sure you want to clear your browsing history?')) {
+                            window.aiRecommendations.clearHistory();
+                            dropdown.remove();
+                            alert('Your browsing history has been cleared!');
+                        }
+                    });
+                    
+                    // Close when clicking outside
+                    document.addEventListener('click', function closeDropdown(e) {
+                        if (!dropdown.contains(e.target) && !aiButton.contains(e.target)) {
+                            dropdown.remove();
+                            document.removeEventListener('click', closeDropdown);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

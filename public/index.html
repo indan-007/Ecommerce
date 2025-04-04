@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Store</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/ai-recommendations.css">
+    <link rel="stylesheet" href="styles/navbar-ai.css">
+    <link rel="stylesheet" href="styles/ai-navbar-button.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>E-Commerce Store</h1>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="#" class="ai-recommendation-btn">AI<span class="ai-badge">5</span></a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <!-- AI recommendations will be added here via JavaScript -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Our Store</h1>
+                <p>Discover amazing products at great prices</p>
+                <a href="products.html" class="btn-primary">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Featured Categories -->
+        <section class="categories">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <a href="products.html?category=electronics" class="category-card">
+                    <div class="category-icon">📱</div>
+                    <h3>Electronics</h3>
+                </a>
+                <a href="products.html?category=fashion" class="category-card">
+                    <div class="category-icon">👕</div>
+                    <h3>Fashion</h3>
+                </a>
+                <a href="products.html?category=home" class="category-card">
+                    <div class="category-icon">🏠</div>
+                    <h3>Home</h3>
+                </a>
+                <a href="products.html?category=accessories" class="category-card">
+                    <div class="category-icon">👜</div>
+                    <h3>Accessories</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- Personalized Recommendations - AI Powered -->
+        <section class="ai-recommendations" data-recommendation-type="personalized" data-limit="6">
+            <!-- Personalized recommendations will be loaded here via AI -->
+            <p class="loading-recommendations">Loading personalized recommendations...</p>
+        </section>
+        
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid" id="featured-products">
+                <!-- Featured products will be loaded dynamically -->
+                <p class="loading">Loading featured products...</p>
+            </div>
+        </section>
+        
+        <!-- Trending Now - AI Powered -->
+        <section class="ai-recommendations" data-recommendation-type="trending" data-limit="4">
+            <!-- Trending products will be loaded here via AI -->
+            <p class="loading-recommendations">Loading trending products...</p>
+        </section>
+        
+        <!-- Recently Viewed - AI Powered -->
+        <section class="ai-recommendations" data-recommendation-type="recently-viewed" data-limit="4">
+            <!-- Recently viewed products will be loaded here via AI -->
+            <p class="loading-recommendations">Loading your recently viewed items...</p>
+        </section>
+
+        <!-- Special Offers -->
+        <section class="special-offers">
+            <h2 class="section-title">Special Offers</h2>
+            <div class="offers-banner">
+                <div class="offer">
+                    <h3>Summer Sale</h3>
+                    <p>Up to 50% off on selected items</p>
+                    <a href="products.html?sale=summer" class="btn-secondary">View Deals</a>
+                </div>
+                <div class="offer">
+                    <h3>Free Shipping</h3>
+                    <p>On orders over $50</p>
+                    <a href="products.html" class="btn-secondary">Shop Now</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>We provide high-quality products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@example.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 E-commerce Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/ai-recommendations.js"></script>
+    <script src="js/navbar-ai-integration.js"></script>
+    <script src="js/ai-navbar-dropdown.js"></script>
+    <script src="js/ai-feature-highlight.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load featured products
+            loadFeaturedProducts();
+        });
+        
+        // Load featured products
+        function loadFeaturedProducts() {
+            const featuredContainer = document.getElementById('featured-products');
+            
+            // Fetch products data
+            fetch('api/products.php')
+                .then(response => response.json())
+                .then(products => {
+                    // Clear loading message
+                    featuredContainer.innerHTML = '';
+                    
+                    // Select a few products to feature (in a real app, this would come from the server)
+                    const featuredIds = ['1', '8', '10', '14'];
+                    const featuredProducts = products.filter(product => featuredIds.includes(product.id));
+                    
+                    // Display each featured product
+                    featuredProducts.forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product-card';
+                        
+                        productCard.innerHTML = `
+                            <div class="product-image">
+                                <img src="${product.image || 'images/placeholder.jpg'}" alt="${product.name}">
+                            </div>
+                            <div class="product-details">
+                                <h3>${product.name}</h3>
+                                <p class="product-price">$${product.price.toFixed(2)}</p>
+                                <a href="product.html?id=${product.id}" class="btn-primary">View Details</a>
+                            </div>
+                        `;
+                        
+                        featuredContainer.appendChild(productCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading featured products:', error);
+                    featuredContainer.innerHTML = '<p class="error">Error loading products. Please try again later.</p>';
+                });
+        }
+    </script>
+</body>
+</html> 

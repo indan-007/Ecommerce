@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Integration Example</title>
+    <style>
+        /* Match the dark theme from the screenshot */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        /* Header styling */
+        header {
+            background-color: #111;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-style: italic;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #5956e9;
+        }
+        
+        /* AI button styles */
+        .ai-button {
+            display: inline-flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+            margin-right: 15px;
+        }
+        
+        .ai-button:hover {
+            color: #5956e9;
+        }
+        
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #5956e9;
+            color: #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        
+        /* Dropdown styles */
+        .ai-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            background-color: #111;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            margin-top: 15px;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .ai-dropdown-header {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ai-dropdown-title {
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .ai-close-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        .ai-tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+        }
+        
+        .ai-tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .ai-tab.active {
+            font-weight: 600;
+            color: #5956e9;
+            border-bottom: 2px solid #5956e9;
+        }
+        
+        .ai-content {
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .ai-content-panel {
+            display: none;
+        }
+        
+        .ai-content-panel.active {
+            display: block;
+        }
+        
+        .ai-product {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+        }
+        
+        .ai-product:hover {
+            background-color: #222;
+        }
+        
+        .ai-product-image {
+            width: 50px;
+            height: 50px;
+            background-color: #333;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 24px;
+        }
+        
+        .ai-product-name {
+            margin: 0 0 5px 0;
+            font-weight: 500;
+        }
+        
+        .ai-product-price {
+            margin: 0;
+            font-size: 14px;
+            color: #5956e9;
+        }
+        
+        .ai-dropdown-footer {
+            padding: 15px;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .ai-view-all {
+            color: #5956e9;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        /* Auth buttons */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .login-btn {
+            color: #5956e9;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid #5956e9;
+        }
+        
+        .signup-btn {
+            background-color: #5956e9;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+        }
+        
+        /* Hero section */
+        .hero {
+            padding: 20px;
+        }
+        
+        .hero-title {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .hero-subtitle {
+            font-size: 48px;
+            margin-top: 0;
+            color: #5956e9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Cart</div>
+        <div class="nav-menu">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Blog</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+            
+            <!-- AI Button -->
+            <a href="#" class="nav-link ai-button">
+                AI<span class="ai-badge">5</span>
+                
+                <!-- AI Dropdown (hidden by default) -->
+                <div class="ai-dropdown" id="aiDropdown">
+                    <div class="ai-dropdown-header">
+                        <h3 class="ai-dropdown-title">AI Recommendations</h3>
+                        <button class="ai-close-btn" id="closeAiDropdown">×</button>
+                    </div>
+                    
+                    <div class="ai-tabs">
+                        <button class="ai-tab active" data-tab="forYou">For You</button>
+                        <button class="ai-tab" data-tab="recentlyViewed">Recently Viewed</button>
+                    </div>
+                    
+                    <div class="ai-content">
+                        <div class="ai-content-panel active" id="forYou">
+                            <div class="ai-product">
+                                <div class="ai-product-image">🎧</div>
+                                <div>
+                                    <p class="ai-product-name">Bluetooth Headphones</p>
+                                    <p class="ai-product-price">$59.99</p>
+                                </div>
+                            </div>
+                            <div class="ai-product">
+                                <div class="ai-product-image">⌚</div>
+                                <div>
+                                    <p class="ai-product-name">Smart Watch</p>
+                                    <p class="ai-product-price">$129.99</p>
+                                </div>
+                            </div>
+                            <div class="ai-product">
+                                <div class="ai-product-image">🔌</div>
+                                <div>
+                                    <p class="ai-product-name">Wireless Charger</p>
+                                    <p class="ai-product-price">$49.99</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-content-panel" id="recentlyViewed">
+                            <p style="text-align: center; color: #999; padding: 20px 0;">
+                                No recently viewed products.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-dropdown-footer">
+                        <a href="#" class="ai-view-all">View All Recommendations</a>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="nav-link">Cart</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="#" class="login-btn">Login</a>
+            <a href="#" class="signup-btn">Sign Up</a>
+        </div>
+    </header>
+    
+    <div class="hero">
+        <div>
+            <h1 class="hero-title">Trade-in-offer</h1>
+            <h2 class="hero-subtitle">Super value deals</h2>
+            <h3 style="color: #9747FF;">On all products</h3>
+            <p>Save more with coupons & up to 70% off!</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const aiButton = document.querySelector('.ai-button');
+            const aiDropdown = document.getElementById('aiDropdown');
+            const closeAiDropdown = document.getElementById('closeAiDropdown');
+            const tabButtons = document.querySelectorAll('.ai-tab');
+            
+            // Toggle dropdown
+            aiButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isVisible = aiDropdown.style.display === 'block';
+                aiDropdown.style.display = isVisible ? 'none' : 'block';
+            });
+            
+            // Close button
+            closeAiDropdown.addEventListener('click', function() {
+                aiDropdown.style.display = 'none';
+            });
+            
+            // Tab switching
+            tabButtons.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update tab styles
+                    tabButtons.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update content
+                    const tabId = this.getAttribute('data-tab');
+                    document.querySelectorAll('.ai-content-panel').forEach(panel => {
+                        panel.classList.remove('active');
+                    });
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (aiDropdown.style.display === 'block' && 
+                    !aiDropdown.contains(e.target) && 
+                    !aiButton.contains(e.target)) {
+                    aiDropdown.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

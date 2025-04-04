@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <title>RIOS - Product Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section id="header">
+        <a href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <a href="#" id="close"><img height="25px" src="images/cross-svgrepo-com.svg" alt=""></a>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i> 
+        </div>
+    </section>
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="" width="100%" id="MainImg" alt="">
+
+            <!-- <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="" width="100%" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="" width="100%" class="small-img" alt="">
+                </div>
+            </div> -->
+        </div>
+
+        <div class="single-pro-details">
+            <h6>Home / <span id="productCategory">Clothing</span></h6>
+            <h4 id="productName">Product Name</h4>
+            <h2 id="productPrice">₹0.00</h2>
+            <select>
+                <option>Select Size</option>
+                <option>XS</option>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+            </select>
+            <input type="number" value="1" min="1">
+            <button class="normal">Add To Cart</button>
+            <h4>Product Details</h4>
+            <span id="productDescription">
+                Premium quality clothing item by <span id="productBrand"></span>. 
+                This stylish piece is perfect for any occasion. Made with high-quality materials 
+                for comfort and durability.
+            </span>
+        </div>
+    </section>
+
+    <!-- <section id="product1" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Summer Collection New Modern Design</p>
+        <div class="pro-container">
+            <div class="pro">
+                <img src="images/n1.jpg" alt="">
+                <div class="des">
+                    <span>Trendy Wear</span>
+                    <h5>Elegant Blue Gown</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>₹7499</h4>
+                </div>
+                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div> -->
+            <!-- More featured products... -->
+        <!-- </div>   
+    </section> -->
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Our Newsletter</h4>
+            <p>Get Exclusive Deals, Discounts, Memebership Perks And <span>Special Offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email Address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name');
+        const productPrice = urlParams.get('price');
+        const productBrand = urlParams.get('brand');
+        const productImage = urlParams.get('image');
+        
+        // Set product details
+        if (productName) {
+            document.getElementById('productName').innerText = productName;
+        }
+        
+        if (productPrice) {
+            document.getElementById('productPrice').innerText = productPrice;
+        }
+        
+        if (productBrand) {
+            document.getElementById('productBrand').innerText = productBrand;
+        }
+        
+        if (productImage) {
+            // Set main image
+            const mainImg = document.getElementById('MainImg');
+            mainImg.src = productImage;
+            
+            // Set all small images
+            const smallImgs = document.querySelectorAll('.small-img');
+            smallImgs.forEach(img => {
+                img.src = productImage;
+            });
+        }
+        
+        // Handle small image click
+        const smallImgs = document.querySelectorAll('.small-img');
+        smallImgs.forEach((img, index) => {
+            img.onclick = function() {
+                document.getElementById('MainImg').src = this.src;
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+    <script src="darkmode.js"></script>
+    <script src="chatbot.js"></script>
+</body>    

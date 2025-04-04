@@ -1,0 +1,180 @@
+/* AI Button Styles for Navbar */
+.ai-recommendation-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+    position: relative;
+}
+
+.ai-recommendation-btn:hover {
+    color: #5956e9;
+}
+
+.ai-recommendation-btn.active {
+    color: #5956e9;
+}
+
+/* Highlight animation */
+@keyframes highlight-pulse {
+    0% { color: #fff; }
+    50% { color: #5956e9; }
+    100% { color: #fff; }
+}
+
+.ai-recommendation-btn.highlight {
+    animation: highlight-pulse 1s ease-in-out infinite;
+}
+
+.ai-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    background-color: #5956e9;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 6px;
+    padding: 0 4px;
+}
+
+/* AI Dropdown */
+.ai-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background-color: #101010;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    margin-top: 15px;
+    z-index: 1000;
+    color: #fff;
+    display: none;
+}
+
+.ai-dropdown-header {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ai-dropdown-title {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.ai-close-btn {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.ai-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+}
+
+.ai-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.ai-tab.active {
+    font-weight: 600;
+    color: #5956e9;
+    border-bottom: 2px solid #5956e9;
+}
+
+.ai-content {
+    padding: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.ai-product {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+}
+
+.ai-product:hover {
+    background-color: #252525;
+}
+
+.ai-product-image {
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 24px;
+}
+
+.ai-product-info p {
+    margin: 0;
+}
+
+.ai-product-name {
+    font-weight: 500;
+    margin-bottom: 5px !important;
+}
+
+.ai-product-price {
+    font-size: 14px;
+    color: #5956e9;
+}
+
+.ai-dropdown-footer {
+    padding: 15px;
+    border-top: 1px solid #333;
+    text-align: center;
+}
+
+.ai-view-all {
+    color: #5956e9;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Make sure the AI button appears like other nav links */
+nav ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a.ai-recommendation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Ensure proper spacing between nav items */
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+} 

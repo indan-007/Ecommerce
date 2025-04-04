@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - E-commerce Store</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/order-confirmation.css">
+    <link rel="stylesheet" href="styles/ai-recommendations.css">
+    <link rel="stylesheet" href="styles/navbar-ai.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>E-Commerce Store</h1>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <!-- AI recommendations will be added here via JavaScript -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="confirmation-container">
+            <div class="confirmation-header">
+                <div class="icon-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+                        <circle cx="12" cy="12" r="11" fill="#4CAF50"/>
+                        <path d="M9.5 15.5l-4-4L7 10l2.5 2.5L15 7l1.5 1.5z" fill="#fff"/>
+                    </svg>
+                </div>
+                <h1>Your Order is Confirmed!</h1>
+                <p>Thank you for your purchase. We've received your order and are processing it now.</p>
+            </div>
+            
+            <div class="order-details">
+                <h2>Order Details</h2>
+                <div class="order-info">
+                    <p><strong>Order Number:</strong> <span id="order-id">ORD12345</span></p>
+                    <p><strong>Order Date:</strong> <span id="order-date">June 15, 2023</span></p>
+                </div>
+                
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="order-items" id="order-items">
+                        <!-- Order items will be loaded here via JavaScript -->
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax:</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="total-row total-final">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="next-steps">
+                    <h3>Next Steps</h3>
+                    <p>You will receive an email confirmation shortly at <span id="customer-email">customer@example.com</span>.</p>
+                    <p>You can track your order status in <a href="account.html">your account</a>.</p>
+                    
+                    <div class="actions">
+                        <a href="index.html" class="btn-primary">Continue Shopping</a>
+                        <a href="account.html" class="btn-secondary">View Order History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Personalized Recommendations - AI Powered -->
+        <div class="ai-recommendations" data-recommendation-type="personalized" data-limit="4">
+            <!-- Personalized recommendations will be loaded here via AI -->
+            <p class="loading-recommendations">Loading recommendations...</p>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 E-commerce Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/ai-recommendations.js"></script>
+    <script src="js/navbar-ai-integration.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order ID from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id') || 'ORD' + Math.floor(Math.random() * 10000);
+            
+            // Set order ID in the page
+            document.getElementById('order-id').textContent = orderId;
+            
+            // Set current date
+            const orderDate = new Date();
+            document.getElementById('order-date').textContent = orderDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            // For demo purposes, we'll load sample order data
+            // In a real application, this would come from the server based on the order ID
+            const orderItems = [
+                {
+                    id: '3',
+                    name: 'Ultra HD 4K Smart TV',
+                    category: 'electronics',
+                    price: 599.99,
+                    image: '/images/products/smart-tv.jpg',
+                    quantity: 1
+                },
+                {
+                    id: '5',
+                    name: 'Wireless Charging Pad',
+                    category: 'electronics',
+                    price: 29.99,
+                    image: '/images/products/charging-pad.jpg',
+                    quantity: 2
+                }
+            ];
+            
+            // Calculate totals
+            const subtotal = orderItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = 15.00;
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + shipping + tax;
+            
+            // Update totals in the page
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            // Set customer email (would come from session/order data in a real app)
+            document.getElementById('customer-email').textContent = 'customer@example.com';
+            
+            // Render order items
+            const orderItemsContainer = document.getElementById('order-items');
+            orderItemsContainer.innerHTML = '';
+            
+            orderItems.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                
+                const itemHTML = `
+                    <div class="order-item" 
+                         data-product-id="${item.id}" 
+                         data-product-name="${item.name}" 
+                         data-product-category="${item.category}" 
+                         data-product-price="${item.price}"
+                         data-quantity="${item.quantity}">
+                        <div class="item-image">
+                            <img src="${item.image || 'images/placeholder.jpg'}" alt="${item.name}">
+                        </div>
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p class="item-price">$${item.price.toFixed(2)} × ${item.quantity}</p>
+                        </div>
+                        <div class="item-total">
+                            $${itemTotal.toFixed(2)}
+                        </div>
+                    </div>
+                `;
+                
+                orderItemsContainer.innerHTML += itemHTML;
+                
+                // Track purchase for AI recommendations
+                if (window.aiRecommendations) {
+                    aiRecommendations.trackPurchase(item, item.quantity);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

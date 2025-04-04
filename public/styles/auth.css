@@ -1,0 +1,243 @@
+/* Auth pages styling */
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #45a049;
+    --text-color: #333;
+    --light-text: #666;
+    --lighter-text: #999;
+    --border-color: #ddd;
+    --error-color: #f44336;
+    --success-color: #4CAF50;
+    --warning-color: #ff9800;
+    --background-color: #f9f9f9;
+    --card-background: #fff;
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-card {
+    background-color: var(--card-background);
+    box-shadow: var(--card-shadow);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+}
+
+.auth-card h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember-me label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.remember-me input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.forgot-password {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-primary:disabled {
+    background-color: var(--lighter-text);
+    cursor: not-allowed;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--light-text);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.back-to-home {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* Success and error messages */
+.success {
+    color: var(--success-color);
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgba(76, 175, 80, 0.1);
+    margin-bottom: 20px;
+}
+
+.error {
+    color: var(--error-color);
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgba(244, 67, 54, 0.1);
+    margin-bottom: 20px;
+}
+
+.warning {
+    color: var(--warning-color);
+    padding: 10px;
+    border-radius: 4px;
+    background-color: rgba(255, 152, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Password visibility toggle */
+.password-field {
+    position: relative;
+}
+
+.password-field .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--light-text);
+    user-select: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    z-index: 2;
+}
+
+.password-field .toggle-password:hover {
+    color: var(--text-color);
+}
+
+.password-field input[type="password"],
+.password-field input[type="text"] {
+    padding-right: 40px; /* Make room for the eye icon */
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+    .auth-card {
+        padding: 25px;
+    }
+    
+    .auth-card h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .btn-primary {
+        padding: 12px;
+        font-size: 14px;
+    }
+} 

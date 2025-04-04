@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Features - E-commerce Store</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/ai-features.css">
+    <link rel="stylesheet" href="styles/ai-navbar-button.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>E-Commerce Store</h1>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="#" class="ai-recommendation-btn">AI<span class="ai-badge">5</span></a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="ai-features-hero">
+            <h1>AI-Powered Shopping Experience</h1>
+            <p>Discover how our AI technology enhances your shopping journey</p>
+        </section>
+
+        <section class="ai-features-grid">
+            <!-- Personalized Recommendations -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Smart Recommendations</h3>
+                <p>Get personalized product suggestions based on your browsing history, purchase patterns, and preferences.</p>
+                <ul class="feature-details">
+                    <li>Personalized home page</li>
+                    <li>Category-specific recommendations</li>
+                    <li>Similar product suggestions</li>
+                    <li>Trending items in your interests</li>
+                </ul>
+            </div>
+
+            <!-- Visual Search -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Visual Search</h3>
+                <p>Find products by uploading images or taking photos of items you like.</p>
+                <ul class="feature-details">
+                    <li>Image-based product search</li>
+                    <li>Camera search integration</li>
+                    <li>Style matching</li>
+                    <li>Similar product detection</li>
+                </ul>
+            </div>
+
+            <!-- Smart Price Tracking -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Price Intelligence</h3>
+                <p>AI-powered price tracking and prediction to help you get the best deals.</p>
+                <ul class="feature-details">
+                    <li>Price drop alerts</li>
+                    <li>Price prediction</li>
+                    <li>Historical price tracking</li>
+                    <li>Deal recommendations</li>
+                </ul>
+            </div>
+
+            <!-- Virtual Try-On -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">👕</div>
+                <h3>Virtual Try-On</h3>
+                <p>See how clothes and accessories look on you before buying.</p>
+                <ul class="feature-details">
+                    <li>AR clothing visualization</li>
+                    <li>Size recommendations</li>
+                    <li>Style mixing</li>
+                    <li>Virtual fitting room</li>
+                </ul>
+            </div>
+
+            <!-- Smart Cart -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Smart Cart</h3>
+                <p>AI-powered shopping cart with intelligent features.</p>
+                <ul class="feature-details">
+                    <li>Smart reordering</li>
+                    <li>Bundle recommendations</li>
+                    <li>Price optimization</li>
+                    <li>Stock predictions</li>
+                </ul>
+            </div>
+
+            <!-- Voice Shopping -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Voice Shopping</h3>
+                <p>Shop hands-free using voice commands and natural language.</p>
+                <ul class="feature-details">
+                    <li>Voice search</li>
+                    <li>Voice navigation</li>
+                    <li>Voice reordering</li>
+                    <li>Multi-language support</li>
+                </ul>
+            </div>
+
+            <!-- Smart Reviews -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Smart Reviews</h3>
+                <p>AI-powered review analysis and insights.</p>
+                <ul class="feature-details">
+                    <li>Sentiment analysis</li>
+                    <li>Review summarization</li>
+                    <li>Fake review detection</li>
+                    <li>Key feature extraction</li>
+                </ul>
+            </div>
+
+            <!-- Smart Delivery -->
+            <div class="ai-feature-card">
+                <div class="feature-icon">🚚</div>
+                <h3>Smart Delivery</h3>
+                <p>AI-optimized delivery and logistics.</p>
+                <ul class="feature-details">
+                    <li>Delivery time prediction</li>
+                    <li>Route optimization</li>
+                    <li>Smart packaging</li>
+                    <li>Real-time tracking</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="ai-features-demo">
+            <h2>Try Our AI Features</h2>
+            <div class="demo-container">
+                <div class="demo-item">
+                    <h3>Visual Search Demo</h3>
+                    <div class="demo-upload">
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        <button class="btn-primary" onclick="document.getElementById('imageUpload').click()">
+                            Upload Image
+                        </button>
+                    </div>
+                    <div id="demoResults" class="demo-results"></div>
+                </div>
+                
+                <div class="demo-item">
+                    <h3>Voice Shopping Demo</h3>
+                    <button class="btn-primary" id="startVoice">
+                        Start Voice Shopping
+                    </button>
+                    <div id="voiceResults" class="demo-results"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>We provide high-quality products at affordable prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@example.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 E-commerce Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/ai-navbar-dropdown.js"></script>
+    <script>
+        // Demo functionality
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('demoResults').innerHTML = `
+                        <div class="demo-message">
+                            <p>Processing image...</p>
+                            <p>Finding similar products...</p>
+                        </div>
+                    `;
+                    // Simulate AI processing
+                    setTimeout(() => {
+                        document.getElementById('demoResults').innerHTML = `
+                            <div class="demo-message">
+                                <p>Found similar products!</p>
+                                <p>This is a demo of our visual search feature.</p>
+                            </div>
+                        `;
+                    }, 2000);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('startVoice').addEventListener('click', function() {
+            const voiceResults = document.getElementById('voiceResults');
+            voiceResults.innerHTML = `
+                <div class="demo-message">
+                    <p>Listening...</p>
+                    <p>Try saying: "Show me blue shirts under $50"</p>
+                </div>
+            `;
+            // Simulate voice recognition
+            setTimeout(() => {
+                voiceResults.innerHTML = `
+                    <div class="demo-message">
+                        <p>Voice command received!</p>
+                        <p>This is a demo of our voice shopping feature.</p>
+                    </div>
+                `;
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 

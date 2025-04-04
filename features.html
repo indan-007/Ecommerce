@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+            font-size: 2.5rem;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .feature-box {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            padding: 30px;
+            position: relative;
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .feature-title {
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-description {
+            color: #cccccc;
+            font-size: 0.9em;
+            line-height: 1.6;
+            height: 70px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .feature-tag {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Unique colors for each feature box */
+        .free-shipping {
+            background: linear-gradient(145deg, #6b46c1, #553c9a);
+        }
+        .free-shipping .feature-tag { background-color: #9f7aea; color: white; }
+
+        .online-order {
+            background: linear-gradient(145deg, #38b2ac, #2c7a7b);
+        }
+        .online-order .feature-tag { background-color: #4fd1c5; color: white; }
+
+        .save-money {
+            background: linear-gradient(145deg, #3182ce, #2b6cb0);
+        }
+        .save-money .feature-tag { background-color: #63b3ed; color: white; }
+
+        .promotions {
+            background: linear-gradient(145deg, #805ad5, #6b46c1);
+        }
+        .promotions .feature-tag { background-color: #9f7aea; color: white; }
+
+        .happy-customer {
+            background: linear-gradient(145deg, #d53f8c, #b83280);
+        }
+        .happy-customer .feature-tag { background-color: #ed64a6; color: white; }
+
+        .customer-support {
+            background: linear-gradient(145deg, #dd6b20, #c05621);
+        }
+        .customer-support .feature-tag { background-color: #ed8936; color: white; }
+
+        /* Navigation styles */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: #1a1a1a;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .back-button:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .features-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .feature-icon {
+                width: 120px;
+                height: 120px;
+                padding: 25px;
+            }
+            
+            .feature-box {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+    
+    <h1 class="page-title">Our Premium Services</h1>
+    <p class="page-subtitle">Discover our exclusive features that make your shopping experience better than ever. Click on any service to learn more.</p>
+    
+    <div class="features-container">
+        <div class="feature-box free-shipping">
+            <!-- <div class="feature-icon">
+                <img src="images/features/shipping.png" alt="Free Shipping">
+            </div> -->
+            <h3 class="feature-title">Free Shipping</h3>
+            <p class="feature-description">
+                Enjoy free shipping on all orders above ₹999. Quick and reliable delivery to your doorstep.
+            </p>
+            <a href="my_features/free_shipping.html" class="cta-button">Learn More</a>
+            <span class="feature-tag">Free Shipping</span>
+        </div>
+
+        <div class="feature-box online-order">
+            <!-- <div class="feature-icon">
+                <img src="images/features/order.png" alt="Online Order">
+            </div> -->
+            <h3 class="feature-title">Online Order</h3>
+            <p class="feature-description">
+                Shop conveniently from anywhere, anytime. Easy ordering process with secure checkout.
+            </p>
+            <a href="my_features/online_order.html" class="cta-button">Shop Now</a>
+            <span class="feature-tag">Online Order</span>
+        </div>
+
+        <div class="feature-box save-money">
+            <!-- <div class="feature-icon">
+                <img src="images/features/savings.png" alt="Save Money">
+            </div> -->
+            <h3 class="feature-title">Save Money</h3>
+            <p class="feature-description">
+                Great deals and discounts. Special offers and seasonal sales to help you save more.
+            </p>
+            <a href="my_features/save_money.html" class="cta-button">View Offers</a>
+            <span class="feature-tag">Save Money</span>
+        </div>
+
+        <div class="feature-box promotions">
+            <!-- <div class="feature-icon">
+                <img src="images/features/promotions.png" alt="Promotions">
+            </div> -->
+            <h3 class="feature-title">Promotions</h3>
+            <p class="feature-description">
+                Exclusive promotions and deals. Special discounts for members and regular customers.
+            </p>
+            <a href="my_features/promotions.html" class="cta-button">See Promotions</a>
+            <span class="feature-tag">Promotions</span>
+        </div>
+
+        <div class="feature-box happy-customer">
+            <!-- <div class="feature-icon">
+                <img src="images/features/happy.png" alt="Happy Customer">
+            </div> -->
+            <h3 class="feature-title">Happy Customer</h3>
+            <p class="feature-description">
+                Customer satisfaction is our priority. Join our growing family of happy customers.
+            </p>
+            <a href="my_features/happy_customer.html" class="cta-button">Read Testimonials</a>
+            <span class="feature-tag">Happy Customer</span>
+        </div>
+
+        <div class="feature-box customer-support">
+            <!-- <div class="feature-icon">
+                <img src="images/features/support.png" alt="Customer Support">
+            </div> -->
+            <h3 class="feature-title">Customer Support</h3>
+            <p class="feature-description">
+                24/7 dedicated customer support. We're here to help you with any queries.
+            </p>
+            <a href="my_features/customer_support.html" class="cta-button">Get Help</a>
+            <span class="feature-tag">Customer Support</span>
+        </div>
+    </div>
+
+    <script>
+        // Add animation when scrolling into view
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        featureBoxes.forEach(box => {
+            box.style.opacity = '0';
+            box.style.transform = 'translateY(50px)';
+            box.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(box);
+        });
+
+        // Click to navigate to the corresponding page
+        featureBoxes.forEach(box => {
+            box.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A') {
+                    const link = box.querySelector('.cta-button');
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

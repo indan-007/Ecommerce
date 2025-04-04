@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - E-commerce Store</title>
+    <link rel="stylesheet" href="styles/auth.css">
+    <style>
+        .verification-box {
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .verification-code {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .verification-code input {
+            width: 50px;
+            height: 60px;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .verification-code input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        
+        .resend-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .resend-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .resend-link a:hover {
+            text-decoration: underline;
+        }
+        
+        #countdown {
+            font-weight: bold;
+        }
+        
+        .auto-fill-notice {
+            margin-top: 10px;
+            color: #4CAF50;
+            font-weight: 500;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="verification-box">
+                <h1>Verify Your Email</h1>
+                <p>We've sent a verification code to your email address. Please enter the code below to verify your account.</p>
+                
+                <form id="verification-form">
+                    <div class="form-group">
+                        <label for="verification-code">Verification Code</label>
+                        <input type="text" id="verification-code" maxlength="6" placeholder="Enter 6-digit code" required>
+                    </div>
+                    
+                    <div class="auto-fill-notice" id="auto-fill-notice">
+                        Verification code auto-filled for testing
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Verify Email</button>
+                </form>
+                
+                <div class="resend-link">
+                    <p>Didn't receive the code? <span id="countdown">(60s)</span></p>
+                    <a href="#" id="resend-link" style="display: none;">Resend Code</a>
+                </div>
+                
+                <div class="auth-footer">
+                    <a href="login.html" class="back-link">Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const verificationForm = document.getElementById('verification-form');
+            const verificationCodeInput = document.getElementById('verification-code');
+            const resendLink = document.getElementById('resend-link');
+            const countdownDisplay = document.getElementById('countdown');
+            const autoFillNotice = document.getElementById('auto-fill-notice');
+            
+            // Check if there's a pending verification
+            const pendingVerification = JSON.parse(localStorage.getItem('pendingVerification') || '{}');
+            const userEmail = pendingVerification.email;
+            
+            if (!userEmail) {
+                // No pending verification, redirect to signup
+                window.location.href = 'signup.html';
+                return;
+            }
+            
+            // For development: Auto-fill verification code
+            if (pendingVerification.verificationCode) {
+                verificationCodeInput.value = pendingVerification.verificationCode;
+                autoFillNotice.style.display = 'block';
+            }
+            
+            // Countdown timer for resend code
+            let countdown = 60;
+            const timer = setInterval(() => {
+                countdown--;
+                countdownDisplay.textContent = `(${countdown}s)`;
+                
+                if (countdown <= 0) {
+                    clearInterval(timer);
+                    countdownDisplay.style.display = 'none';
+                    resendLink.style.display = 'inline';
+                }
+            }, 1000);
+            
+            // Handle form submission
+            verificationForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const verificationCode = verificationCodeInput.value.trim();
+                
+                if (verificationCode.length !== 6) {
+                    alert('Please enter a valid 6-digit verification code');
+                    return;
+                }
+                
+                try {
+                    // Show loading state
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Verifying...';
+                    
+                    // Send verification request
+                    const response = await fetch('process_verification.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: userEmail,
+                            code: verificationCode
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    
+                    if (data.success) {
+                        // Clear the pending verification
+                        localStorage.removeItem('pendingVerification');
+                        
+                        // Show success message and redirect to login
+                        alert('Email verified successfully! You can now log in.');
+                        window.location.href = 'login.html';
+                    } else {
+                        alert(data.message || 'Invalid verification code');
+                    }
+                } catch (error) {
+                    alert('Error connecting to server. Please try again later.');
+                    console.error('Verification error:', error);
+                    
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Verify Email';
+                }
+            });
+            
+            // Handle resend code
+            resendLink.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    resendLink.textContent = 'Sending...';
+                    
+                    // Request new verification code
+                    const response = await fetch('process_resend_verification.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: userEmail
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Update the stored verification code
+                        localStorage.setItem('pendingVerification', JSON.stringify({
+                            email: userEmail,
+                            verificationCode: data.verificationCode
+                        }));
+                        
+                        // Auto-fill for development
+                        if (data.verificationCode) {
+                            verificationCodeInput.value = data.verificationCode;
+                            autoFillNotice.style.display = 'block';
+                        }
+                        
+                        // Reset the countdown
+                        countdown = 60;
+                        countdownDisplay.textContent = `(${countdown}s)`;
+                        countdownDisplay.style.display = 'inline';
+                        resendLink.style.display = 'none';
+                        
+                        // Restart the timer
+                        clearInterval(timer);
+                        const newTimer = setInterval(() => {
+                            countdown--;
+                            countdownDisplay.textContent = `(${countdown}s)`;
+                            
+                            if (countdown <= 0) {
+                                clearInterval(newTimer);
+                                countdownDisplay.style.display = 'none';
+                                resendLink.style.display = 'inline';
+                            }
+                        }, 1000);
+                        
+                        alert('Verification code sent to your email');
+                    } else {
+                        alert(data.message || 'Error sending verification code');
+                    }
+                    
+                    resendLink.textContent = 'Resend Code';
+                } catch (error) {
+                    alert('Error connecting to server. Please try again later.');
+                    console.error('Resend verification error:', error);
+                    resendLink.textContent = 'Resend Code';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

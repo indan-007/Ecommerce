@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIOS Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #7E57C2;
+            --secondary-color: #5E35B1;
+            --text-color: #FFFFFF;
+            --dark-bg: #1A1A1A;
+            --card-bg: #2D2D2D;
+            --hover-color: #9575CD;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background: var(--primary-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: transform 0.3s;
+        }
+
+        .chat-header .close-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-body {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .welcome-message {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            color: var(--text-color);
+            padding: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-color);
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .message.user .message-avatar {
+            background: var(--secondary-color);
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            background: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .message.user .message-content {
+            background: var(--secondary-color);
+        }
+
+        .chat-input {
+            padding: 15px;
+            background: var(--card-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--primary-color);
+            border-radius: 25px;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-container input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-container button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .input-container button:hover {
+            background: var(--hover-color);
+        }
+
+        .voice-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 8px;
+            transition: color 0.3s;
+        }
+
+        .voice-btn:hover {
+            color: var(--hover-color);
+        }
+
+        .suggestions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-chip {
+            background: var(--dark-bg);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid var(--primary-color);
+        }
+
+        .suggestion-chip:hover {
+            background: var(--primary-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .product-card {
+            background: var(--dark-bg);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .product-info h4 {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .product-info p {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: typing 1s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-widget">
+        <div class="chat-header">
+            <h3>
+                <i class="fas fa-robot"></i>
+                RIOS Assistant
+            </h3>
+            <button class="close-btn" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="chat-body">
+            <div class="welcome-message">
+                <p>Hi! I'm your RIOS shopping assistant. How can I help you today?</p>
+                <p>You can also use voice commands by clicking the microphone icon.</p>
+            </div>
+
+            <div class="quick-actions">
+                <button class="action-btn">
+                    <i class="fas fa-box"></i>
+                    Track Order
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-shopping-bag"></i>
+                    Browse Products
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-ruler"></i>
+                    Size Guide
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-truck"></i>
+                    Shipping Info
+                </button>
+            </div>
+
+            <div class="chat-messages">
+                <!-- Messages will be added here dynamically -->
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <div class="input-container">
+                <button class="voice-btn" onclick="startVoiceInput()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="suggestions">
+                <div class="suggestion-chip" onclick="usesuggestion('Find products')">Find products</div>
+                <div class="suggestion-chip" onclick="usesuggestion('Track my order')">Track order</div>
+                <div class="suggestion-chip" onclick="usesuggestion('Size guide')">Size guide</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChat() {
+            const chatWidget = document.querySelector('.chat-widget');
+            chatWidget.style.display = chatWidget.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage('user', message);
+                input.value = '';
+                showTypingIndicator();
+                
+                // Simulate AI response after a short delay
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    processMessage(message);
+                }, 1000);
+            }
+        }
+
+        function addMessage(type, content) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.innerHTML = type === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot typing';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.querySelector('.typing');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function processMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            let response = '';
+
+            if (lowerMessage.includes('track') && lowerMessage.includes('order')) {
+                response = 'To track your order, please provide your order number and I\'ll help you check its status.';
+            }
+            else if (lowerMessage.includes('size') || lowerMessage.includes('measurement')) {
+                response = `Here's our size guide to help you find the perfect fit:
+                    <div class="size-guide">
+                        <table>
+                            <tr>
+                                <th>Size</th>
+                                <th>Chest</th>
+                                <th>Waist</th>
+                                <th>Hips</th>
+                            </tr>
+                            <tr>
+                                <td>S</td>
+                                <td>86-91cm</td>
+                                <td>71-76cm</td>
+                                <td>91-96cm</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>91-96cm</td>
+                                <td>76-81cm</td>
+                                <td>96-101cm</td>
+                            </tr>
+                        </table>
+                    </div>`;
+            }
+            else if (lowerMessage.includes('shipping') || lowerMessage.includes('delivery')) {
+                response = 'We offer free shipping on orders over ₹999. Standard delivery takes 3-5 business days, and express delivery takes 1-2 business days.';
+            }
+            else if (lowerMessage.includes('product') || lowerMessage.includes('find')) {
+                response = `Here are some popular products you might like:
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <img src="images/f1.jpg" alt="Product">
+                            <div class="product-info">
+                                <h4>Casual T-Shirt</h4>
+                                <p>₹599</p>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="images/f2.jpg" alt="Product">
+                            <div class="product-info">
+                                <h4>Summer Dress</h4>
+                                <p>₹1,299</p>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+            else {
+                response = 'I can help you with tracking orders, finding products, checking sizes, and shipping information. What would you like to know?';
+            }
+
+            addMessage('bot', response);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function usesuggestion(suggestion) {
+            const input = document.getElementById('userInput');
+            input.value = suggestion;
+            sendMessage();
+        }
+
+        function startVoiceInput() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onstart = () => {
+                    document.querySelector('.voice-btn').style.color = '#ff4081';
+                };
+
+                recognition.onresult = (event) => {
+                    const text = event.results[0][0].transcript;
+                    document.getElementById('userInput').value = text;
+                    sendMessage();
+                };
+
+                recognition.onend = () => {
+                    document.querySelector('.voice-btn').style.color = '';
+                };
+
+                recognition.start();
+            } else {
+                alert('Voice recognition is not supported in your browser.');
+            }
+        }
+    </script>
+</body>
+</html> 

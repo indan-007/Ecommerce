@@ -1,0 +1,207 @@
+/* Light mode variables */
+:root {
+    --primary-color: #088178;
+    --secondary-color: #1a1a1a;
+    --text-color: #1a1a1a;
+    --border-color: #e1e1e1;
+    --success-color: #27ae60;
+    --bg-color: #E3E6F3;
+    --card-bg: #ffffff;
+    --hover-color: #006963;
+    --input-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode variables */
+.dark-mode {
+    --primary-color: #088178;
+    --secondary-color: #e0e0e0;
+    --text-color: #e0e0e0;
+    --border-color: #2e2e42;
+    --success-color: #56ffb8;
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --hover-color: #006963;
+    --input-bg: #3d3d3d;
+    --shadow-color: rgba(8, 129, 120, 0.2);
+}
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* Main container */
+.checkout-container {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    width: 100%;
+    max-width: 800px;
+    overflow: hidden;
+}
+
+/* Header */
+.checkout-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.checkout-header h2 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Payment Methods */
+.payment-methods {
+    padding: 20px;
+}
+
+.payment-methods h3 {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Payment Options */
+.payment-option {
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+    border-color: var(--primary-color);
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.payment-option label {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* Card Icons */
+.card-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.card-icons img {
+    height: 25px;
+    object-fit: contain;
+}
+
+/* Bank Select */
+.bank-select {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+/* UPI Section */
+.upi-section {
+    margin-top: 15px;
+}
+
+.upi-section p {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.upi-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.upi-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.verify-btn {
+    padding: 8px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.verify-btn:hover {
+    background: var(--hover-color);
+}
+
+.upi-format {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* COD Note */
+.cod-note {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Dark mode specific adjustments */
+.dark-mode input::placeholder {
+    color: #888;
+}
+
+.dark-mode select option {
+    background: var(--card-bg);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .checkout-container {
+        margin: 10px;
+    }
+
+    .upi-input {
+        flex-direction: column;
+    }
+
+    .verify-btn {
+        width: 100%;
+    }
+
+    .card-icons {
+        flex-wrap: wrap;
+    }
+} 

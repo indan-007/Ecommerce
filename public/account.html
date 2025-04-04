@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - E-commerce Store</title>
+    <link rel="stylesheet" href="styles/auth.css">
+    <style>
+        .account-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .account-sections {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .account-nav {
+            border-right: 1px solid #eee;
+            padding-right: 20px;
+        }
+        
+        .account-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .account-nav li {
+            margin-bottom: 15px;
+        }
+        
+        .account-nav a {
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .account-nav a:hover,
+        .account-nav a.active {
+            background-color: #f0f0f0;
+            color: #4CAF50;
+        }
+        
+        .account-content section {
+            display: none;
+        }
+        
+        .account-content section.active {
+            display: block;
+        }
+        
+        .user-info {
+            margin-bottom: 20px;
+        }
+        
+        .user-info h3 {
+            margin-bottom: 5px;
+            color: #4CAF50;
+        }
+        
+        .user-info p {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .edit-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+        
+        .order-item {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .account-sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .account-nav {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .account-nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .account-nav li {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="account-container">
+        <div class="account-header">
+            <h1>My Account</h1>
+            <a href="../index.html" class="btn">Back to Home</a>
+        </div>
+        
+        <div class="account-sections">
+            <div class="account-nav">
+                <ul>
+                    <li><a href="#profile" class="active" data-section="profile">Profile</a></li>
+                    <li><a href="#orders" data-section="orders">Orders</a></li>
+                    <li><a href="#settings" data-section="settings">Settings</a></li>
+                    <li><a href="#" id="logoutBtn">Logout</a></li>
+                </ul>
+            </div>
+            
+            <div class="account-content">
+                <section id="profile" class="active">
+                    <h2>Profile Information</h2>
+                    <div id="profileInfo">
+                        <!-- User profile info will be filled by JavaScript -->
+                    </div>
+                </section>
+                
+                <section id="orders">
+                    <h2>Order History</h2>
+                    <div id="orderHistory">
+                        <p>You haven't placed any orders yet.</p>
+                        <!-- Order history will be filled by JavaScript when available -->
+                    </div>
+                </section>
+                
+                <section id="settings">
+                    <h2>Account Settings</h2>
+                    <form id="passwordChangeForm">
+                        <div class="form-group">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" required>
+                            <div class="password-strength">
+                                <div class="strength-meter"></div>
+                                <span class="strength-text">Password strength</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Update Password</button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Authentication check
+            const authToken = localStorage.getItem('authToken');
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            
+            if (!authToken) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Fill profile information
+            const profileInfo = document.getElementById('profileInfo');
+            profileInfo.innerHTML = `
+                <div class="user-info">
+                    <h3>Personal Information</h3>
+                    <p><strong>Full Name:</strong> ${user.full_name || 'Not set'}</p>
+                    <p><strong>Username:</strong> ${user.username}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <button class="edit-button" id="editProfileBtn">Edit Profile</button>
+                </div>
+                
+                <div class="user-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>Phone:</strong> ${user.phone_number || 'Not set'}</p>
+                    <p><strong>Address:</strong> ${user.address || 'Not set'}</p>
+                </div>
+            `;
+            
+            // Tab navigation
+            const navLinks = document.querySelectorAll('.account-nav a[data-section]');
+            const sections = document.querySelectorAll('.account-content section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link and corresponding section
+                    this.classList.add('active');
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+            
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            });
+            
+            // Password change form with strength checker
+            const passwordInput = document.getElementById('newPassword');
+            const strengthMeter = document.querySelector('.strength-meter');
+            const strengthText = document.querySelector('.strength-text');
+            
+            if (passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    const password = this.value;
+                    const strength = checkPasswordStrength(password);
+                    
+                    // Remove all classes
+                    strengthMeter.classList.remove('weak', 'medium', 'strong');
+                    
+                    if (password.length > 0) {
+                        strengthMeter.classList.add(strength);
+                        
+                        if (strength === 'weak') {
+                            strengthText.textContent = 'Weak password';
+                        } else if (strength === 'medium') {
+                            strengthText.textContent = 'Medium password';
+                        } else {
+                            strengthText.textContent = 'Strong password';
+                        }
+                    } else {
+                        strengthText.textContent = 'Password strength';
+                    }
+                });
+            }
+            
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                
+                // If password length is less than 6 - weak
+                if (password.length < 6) {
+                    return 'weak';
+                }
+                
+                // If password length is greater than 8 - add 1 point
+                if (password.length > 8) {
+                    strength += 1;
+                }
+                
+                // If password contains lowercase and uppercase characters - add 1 point
+                if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+                    strength += 1;
+                }
+                
+                // If password has numbers - add 1 point
+                if (password.match(/([0-9])/)) {
+                    strength += 1;
+                }
+                
+                // If password has special characters - add 1 point
+                if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+                    strength += 1;
+                }
+                
+                // Return strength - 2 or less is weak, 3 is medium, 4 or more is strong
+                if (strength <= 2) {
+                    return 'weak';
+                } else if (strength === 3) {
+                    return 'medium';
+                } else {
+                    return 'strong';
+                }
+            }
+            
+            // Password change form submission
+            const passwordChangeForm = document.getElementById('passwordChangeForm');
+            passwordChangeForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (newPassword !== confirmPassword) {
+                    alert('New passwords do not match');
+                    return;
+                }
+                
+                // API endpoint doesn't actually exist yet, but the frontend is ready for it
+                try {
+                    const response = await fetch('http://localhost:3000/api/users/change-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`
+                        },
+                        body: JSON.stringify({
+                            current_password: currentPassword,
+                            new_password: newPassword
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert('Password updated successfully');
+                        passwordChangeForm.reset();
+                    } else {
+                        alert(data.message || 'Error updating password');
+                    }
+                } catch (error) {
+                    alert('Error connecting to server');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Checkout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="payment.css">
+    <script src="darkmode.js" defer></script>
+</head>
+<body>
+    <!-- Step 2: Define CSS variables for consistent theming -->
+    <style>
+        :root {
+            --primary-color: #8956ff;
+            --secondary-color: #0f0f14;
+            --text-color: #e0e0e0;
+            --border-color: #2e2e42;
+            --success-color: #56ffb8;
+            --dark-bg: #131320;
+            --card-bg: #1a1a24;
+            --hover-color: #9e74ff;
+            --input-bg: #232333;
+            --shadow-color: rgba(137, 86, 255, 0.15);
+        }
+
+        /* Step 3: Reset CSS and define base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: radial-gradient(circle at 10% 20%, rgba(137, 86, 255, 0.1) 0%, transparent 30%);
+        }
+
+        /* Step 4: Style the main container */
+        .checkout-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 40px var(--shadow-color);
+            width: 100%;
+            max-width: 1000px;
+            overflow: hidden;
+            border: 1px solid rgba(137, 86, 255, 0.2);
+        }
+
+        /* Step 5: Style the header */
+        .checkout-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, var(--primary-color), #7240db);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Step 6: Style the order summary section */
+        .order-info {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(25, 25, 35, 0.6);
+        }
+
+        .order-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #a0a0b0;
+        }
+
+        .order-total {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border-color);
+            color: var(--primary-color);
+        }
+
+        /* Step 7: Create the two-column layout for payment methods and form */
+        .payment-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* Step 8: Style the payment methods column */
+        .payment-methods {
+            flex: 1;
+            min-width: 300px;
+            padding: 25px 30px;
+            border-right: 1px solid var(--border-color);
+            background-color: rgba(20, 20, 30, 0.4);
+        }
+
+        .method {
+            margin-bottom: 20px;
+        }
+
+        .method-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        .method-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Step 9: Style the payment form column */
+        .payment-form {
+            flex: 2;
+            min-width: 400px;
+            padding: 25px 30px;
+            background-color: rgba(30, 30, 42, 0.4);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #b8b8c8;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(137, 86, 255, 0.2);
+        }
+
+        /* Step 10: Create the card row for expiry and CVV */
+        .card-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .card-element {
+            flex: 1;
+        }
+
+        /* Step 11: Style the payment button */
+        .pay-button {
+            background: linear-gradient(135deg, var(--primary-color), #7240db);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(137, 86, 255, 0.3);
+        }
+
+        .pay-button:hover {
+            background: linear-gradient(135deg, #9e74ff, #8240e0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(137, 86, 255, 0.4);
+        }
+
+        /* Step 12: Style the card icons */
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 50px;
+            text-align: center;
+            background-color: rgba(40, 40, 50, 0.6);
+            transition: all 0.2s;
+        }
+
+        .card-icon:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Step 13: Add secure payment note */
+        .secure-note {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            color: #a0a0b0;
+            font-size: 14px;
+        }
+
+        .secure-note i {
+            color: var(--success-color);
+            margin-right: 8px;
+        }
+
+        /* Step 14: Style the payment options */
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: rgba(40, 40, 55, 0.5);
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(137, 86, 255, 0.1);
+            transform: translateX(3px);
+        }
+
+        .payment-option input {
+            margin-right: 10px;
+        }
+
+        .selected {
+            border-color: var(--primary-color);
+            background-color: rgba(137, 86, 255, 0.15);
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+
+        /* Step 15: Add responsive design for mobile */
+        @media (max-width: 768px) {
+            .payment-methods {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .order-total {
+                font-size: 18px;
+            }
+        }
+    </style>
+
+    <!-- Step 16: Create the main container -->
+    <div class="checkout-container">
+        <!-- Step 17: Add the header -->
+        <div class="checkout-header">
+            <h2>Select a payment method</h2>
+        </div>
+        
+        <!-- Step 18: Add the order summary section -->
+        <!-- <div class="order-info">
+            <h2 class="order-title">Order Summary</h2>
+            <div class="order-details">
+                <span>Product Name</span>
+                <span>₹2,499.00</span>
+            </div>
+            <div class="order-details">
+                <span>Tax</span>
+                <span>₹449.82</span>
+            </div>
+            <div class="order-details">
+                <span>Shipping</span>
+                <span>Free</span>
+            </div>
+            <div class="order-total">
+                <span>Total</span>
+                <span>₹2,948.82</span>
+            </div>
+        </div> -->
+        
+        <!-- Step 19: Create the payment container with two columns -->
+        <div class="payment-container">
+            <form id="paymentForm" class="payment-methods">
+                <h3>Select payment method</h3>
+                
+                <!-- Credit/Debit Card Option -->
+                <div class="payment-option">
+                    <input type="radio" name="payment_method" id="card" value="card">
+                    <label for="card">Credit or debit card</label>
+                    <!-- <div class="card-icons">
+                        <img src="images/visa.png" alt="Visa">
+                        <img src="images/mastercard.png" alt="Mastercard">
+                        <img src="images/amex.png" alt="American Express">
+                        <img src="images/diners.png" alt="Diners Club">
+                        <img src="images/maestro.png" alt="Maestro">
+                        <img src="images/rupay.png" alt="RuPay">
+                    </div> -->
+                    <div class="card-details" style="display: none;">
+                        <input type="text" name="card_number" placeholder="Card Number" pattern="[0-9]{16}" maxlength="16">
+                        <div class="card-extra">
+                            <input type="text" name="expiry" placeholder="MM/YY" maxlength="5">
+                            <input type="text" name="cvv" placeholder="CVV" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Net Banking Option -->
+                <div class="payment-option">
+                    <input type="radio" name="payment_method" id="netbanking" value="netbanking">
+                    <label for="netbanking">Net Banking</label>
+                    <select class="bank-select" name="bank_name" style="display: none;">
+                        <option value="">Choose an Option</option>
+                        <option value="sbi">State Bank of India</option>
+                        <option value="hdfc">HDFC Bank</option>
+                        <option value="icici">ICICI Bank</option>
+                        <option value="axis">Axis Bank</option>
+                    </select>
+                </div>
+
+                <!-- UPI Option -->
+                <div class="payment-option">
+                    <input type="radio" name="payment_method" id="upi" value="upi" checked>
+                    <label for="upi">Other UPI Apps</label>
+                    <div class="upi-section" style="display: none;">
+                        <p>Please enter your UPI ID</p>
+                        <div class="upi-input">
+                            <input type="text" name="upi_id" placeholder="Enter UPI ID" class="form-control">
+                            <button type="button" class="verify-btn">Verify</button>
+                        </div>
+                        <p class="upi-format">The UPI ID is in the format of name/phone number@bankname</p>
+                    </div>
+                </div>
+
+                <!-- EMI Option -->
+                <div class="payment-option">
+                    <input type="radio" name="payment_method" id="emi" value="emi">
+                    <label for="emi">EMI</label>
+                    <select name="emi_option" class="emi-select" style="display: none;">
+                        <option value="">Select EMI option</option>
+                        <option value="3">3 months</option>
+                        <option value="6">6 months</option>
+                        <option value="12">12 months</option>
+                    </select>
+                </div>
+
+                <!-- Cash on Delivery Option -->
+                <div class="payment-option">
+                    <input type="radio" name="payment_method" id="cod" value="cod">
+                    <label for="cod">Cash on Delivery/Pay on Delivery</label>
+                    <p class="cod-note">Not available for a few or all items.</p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-payment" id="proceedToPay">Proceed to Pay</button>
+            </form>
+        </div>
+    </div>
+    <script> 
+        document.addEventListener("DOMContentLoaded", function() {
+      const button = document.getElementById("proceedToPay");
+      if (button) {
+          button.addEventListener("click", function(event) {
+              event.preventDefault(); // Prevent form submission if inside a form
+  
+              // Default empty values if cartItems or customerDetails are undefined
+              const cartItems = window.cartItems || [];
+              const customerDetails = window.customerDetails || { name: "Customer", phone: "9876543210" };
+  
+              // Calculate total
+              let subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity || 0), 0);
+              const shippingCharge = 50;
+              const finalTotal = subtotal + shippingCharge;
+  
+              // Create order details message
+              let orderDetails = cartItems.map(item => `${item.name} x ${item.quantity} - ₹${(item.price * item.quantity).toFixed(2)}`).join("\n");
+  
+              // WhatsApp message
+              const orderId = "RIOS" + Math.floor(100000 + Math.random() * 900000);
+  
+              const message = `🛍️ Your order has been confirmed and will be processed soon.
+              \n Your order id is: *${orderId}*
+              \n *Phone:* +91${customerDetails.phone}\n\nThank you for shopping with RIOS!
+              \n If this Is'nt you then contact our customer service at +91 8591878113.`;
+  
+              // Format phone number for WhatsApp
+              let formattedPhone = customerDetails.phone.replace(/\D/g, '');
+              if (!formattedPhone.startsWith('91')) {
+                  formattedPhone = '91' + formattedPhone;
+              }
+  
+              // WhatsApp URL (sending to business number)
+              const businessPhone = '918591878113'; // Replace with your business WhatsApp number
+              const whatsappUrl = `https://wa.me/${businessPhone}?text=${encodeURIComponent(message)}`;
+  
+              // Redirect to WhatsApp
+              window.location.href = whatsappUrl; 
+          });
+      }
+  });
+  
+          </script>
+    
+
+    <script src="chatbot.js"></script>
+</body>
+</html>
