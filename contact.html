@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <title>Contact Us - RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        body.dark-mode .contact-container {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        body.dark-mode .get-in-touch,
+        body.dark-mode .contact-form,
+        body.dark-mode .map-section,
+        body.dark-mode .team-section {
+            background: #2a2a2a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        body.dark-mode .get-in-touch h2,
+        body.dark-mode .get-in-touch h3,
+        body.dark-mode .contact-form h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .get-in-touch p,
+        body.dark-mode .member-info p {
+            color: #cccccc;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: #333333;
+            border-color: #444444;
+            color: #ffffff;
+        }
+
+        body.dark-mode .form-group input::placeholder,
+        body.dark-mode .form-group textarea::placeholder {
+            color: #999999;
+        }
+
+        body.dark-mode .team-member {
+            background: #333333;
+        }
+
+        body.dark-mode .member-info h3 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .member-info .position {
+            color: #4CAF50;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px;
+            gap: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .contact-left {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-right {
+            flex: 1;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .get-in-touch {
+            background: #fff;
+            padding: 40px;
+            border-radius: 0;
+            box-shadow: none;
+            height: auto;
+        }
+
+        .get-in-touch span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #088178;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .get-in-touch h2 {
+            font-size: 48px;
+            margin: 0 0 30px;
+            color: #1a1a1a;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .get-in-touch h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .get-in-touch div {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .get-in-touch li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 0;
+        }
+
+        .get-in-touch i {
+            color: #088178;
+            font-size: 24px;
+            margin-top: 3px;
+        }
+
+        .get-in-touch p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            color: #4a4a4a;
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .form-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-inputs {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            font-size: 16px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .submit-btn-wrapper {
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .submit-btn {
+            background-color: #157347;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: auto;
+            text-transform: none;
+            letter-spacing: normal;
+            box-shadow: none;
+        }
+
+        .submit-btn:hover {
+            background-color: #126b3f;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn:active {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .map-section {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 430px;  /* Match get-in-touch height */
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .team-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: 430px;  /* Match contact-form height */
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            height: calc(25% - 12px);
+        }
+
+        .team-member:hover {
+            transform: translateY(-2px);
+        }
+
+        .team-member img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-info h3 {
+            font-size: 16px;
+            margin: 0 0 5px;
+            color: #1a1a1a;
+        }
+
+        .member-info p {
+            margin: 0;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .member-info .position {
+            color: #088178;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        @media (max-width: 992px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-left, .contact-right {
+                max-width: 100%;
+            }
+
+            .get-in-touch, .contact-form, .map-section, .team-section {
+                height: auto;
+            }
+
+            .team-member {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 20px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .contact-container {
+                padding: 60px;
+                gap: 40px;
+            }
+
+            .contact-left, .contact-right {
+                max-width: 700px;
+            }
+
+            .get-in-touch {
+                padding: 60px;
+                height: 500px;
+            }
+
+            .get-in-touch span {
+                font-size: 18px;
+            }
+
+            .get-in-touch h2 {
+                font-size: 56px;
+                margin: 0 0 40px;
+            }
+
+            .get-in-touch h3 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            .get-in-touch li {
+                gap: 20px;
+            }
+
+            .get-in-touch i {
+                font-size: 28px;
+            }
+
+            .get-in-touch p {
+                font-size: 18px;
+            }
+
+            .contact-form {
+                height: 500px;
+            }
+
+            .map-section {
+                height: 500px;
+            }
+
+            .team-section {
+                height: 500px;
+                padding: 40px;
+            }
+
+            .team-container {
+                gap: 12px;
+                height: 100%;
+                overflow-y: auto;
+            }
+
+            .team-member {
+                height: 95px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <a href="#"><img src="images/logo.png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a class="active" href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li>
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="checkbox">
+                        <label for="checkbox" class="toggle-label">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                            <span class="toggle-ball"></span>
+                        </label>
+                    </div>
+                </li>
+                <li><a href="#" id="close"><img height="25px" src="images/cross-svgrepo-com.svg" alt=""></a></li>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i> 
+        </div>
+    </section>
+
+    <section id="page-header" class="about-header">
+        <h2>#let's_talk</h2>
+        <p>Save more with coupons & up to 70% off!</p>
+    </section>
+
+    <div class="contact-container">
+        <div class="contact-left">
+            <div class="get-in-touch">
+                <span>GET IN TOUCH</span>
+                <h4>Visit one of our agency locations or contact us today</h4>
+                <h4>Head Office</h4>
+                <br>
+                <div>
+                
+                        <i class="fa-solid fa-map"></i> Naigaon East, Poman, Maharashtra 401208
+                        <i class="fa-solid fa-envelope"></i> RIOS@gmail.com
+
+                        <i class="fa-solid fa-phone"></i>  +91 98765 43210
+
+                        <i class="fa-solid fa-clock"></i> Monday to Saturday: 9:30am to 4:40pm
+
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2>We love to hear from you</h2>
+                <form id="contactForm" onsubmit="return submitForm(event)">
+                    <div class="form-wrapper">
+                        <div class="form-inputs">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="E-mail" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                            </div>
+                        </div>
+                        <div class="submit-btn-wrapper">
+                            <button type="submit" class="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="contact-right">
+            <div class="map-section">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3764.428340909549!2d72.91420507498466!3d19.350597081911342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7a56dd564fc65%3A0xdedc6f62731ee7eb!2sUniversal%20College%20of%20Engineering%20Mumbai!5e0!3m2!1sen!2sin!4v1742018303429!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="team-section">
+                <div class="team-container">
+                    <div class="team-member">
+                        <img src="images/ruchit.jpg" alt="Team Member">
+                        <div class="member-info">
+                            <h3>Ruchit Bhalekar</h3>
+                            <p class="position">Technical Solutions Developer,Strategist</p>
+                            <p>Phone: +91-3004267189</p>
+                            <p>Email: ruchitbhalekar@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/indan.jpg" alt="Team Member">
+                        <div class="member-info">
+                            <h3>Indan Basu</h3>
+                            <p class="position">Developer, Manager & Handler</p>
+                            <p>Phone: +91-0880720102</p>
+                            <p>Email: indanbasu@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/omkar.jpg" alt="Team Member">
+                        <div class="member-info">
+                            <h3>Omkar Bhuvad</h3>
+                            <p class="position">Communication & UI Styling Specialist</p>
+                            <p>Phone: +91-2065130557</p>
+                            <p>Email: omkarbhuvad@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/saarth.JPG" alt="Team Member">
+                        <div class="member-info">
+                            <h3>Saarth Bhoir</h3>
+                            <p class="position">Content & Resource Manager</p>
+                            <p>Phone: +91-3606132636</p>
+                            <p>Email: saarthbhoir@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Our Newsletter</h4>
+            <p>Get Exclusive Deals, Discounts, Memebership Perks And <span>Special Offers.</span>
+            </p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email Address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address : </strong> Naigaon East, Poman, Maharashtra 401208</p>
+            <p><strong>Phone : </strong> +91 080074 78659</p>
+            <p><strong>Hours : </strong> Mon - Fri : 9:30 AM - 4:40 PM, </p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="follow-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Orders</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col instal">
+            <h4>Install App</h4>
+            <p>From Apple Store Or Google Play</p>
+            <div class="row">
+                <img src="images/app.jpg" alt="">
+                <img src="images/play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="images/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>© 2025, ECW</p>
+        </div>
+    </footer>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            document.getElementById('contactForm').reset();
+            return false;
+        }
+    </script>
+
+    <script src="script.js"></script>
+    <script src="darkmode.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>

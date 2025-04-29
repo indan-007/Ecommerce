@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <title>RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css">
+</head>
+
+<body>
+    <div class="container">
+        <form id="checkoutForm" onsubmit="return submitForm(event)">
+            <div class="row">
+                <div class="column">
+                    <h3 class="title">Billing Address</h3>
+                    <div class="input-box">
+                        <span>Full Name :</span>
+                        <input type="text" id="name" placeholder="Jacob Aiden" required>
+                    </div>
+                    <div class="input-box">
+                        <span>Email :</span>
+                        <input type="email" placeholder="example@someone.com">
+                    </div>
+                    <div class="input-box">
+                        <span>Address :</span>
+                        <input type="text" placeholder="Room - Street - Locality">
+                    </div>
+                    <div class="input-box">
+                        <span>Phone Number :</span>
+                        <input type="tel" id="phone" placeholder="+91" required>
+                    </div>
+
+                    <div class="flex">
+                        <div class="input-box">
+                            <span>State :</span>
+                            <input type="text" placeholder="Maharashtra">
+                        </div>
+                        <div class="input-box">
+                            <span>Zip :</span>
+                            <input type="number" placeholder="123 456">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h3 class="title">Payment</h3>
+                    <div class="input-box">
+                        <span>Cards Accepted :</span>
+                        <img src="images/imgcards.png" alt="">
+                    </div>
+                    <div class="input-box">
+                        <span>Name On Card :</span>
+                        <input type="text" placeholder="Mr. Jacob Aiden">
+                    </div>
+                    <div class="input-box">
+                        <span>Credit Card Number :</span>
+                        <input type="number" placeholder="1111 2222 3333 4444">
+                    </div>
+                    <div class="input-box">
+                        <span>Exp. Month :</span>
+                        <input type="text" placeholder="December">
+                    </div>
+
+                    <div class="flex">
+                        <div class="input-box">
+                            <span>Exp. Year :</span>
+                            <input type="number" placeholder="2027">
+                        </div>
+                        <div class="input-box">
+                            <span>CVV:</span>
+                            <input type="number" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" value="Proceed to Payment" class="submit-btn">
+        </form>
+    </div>
+
+    <script>
+function submitForm(e) {
+    e.preventDefault();
+
+    const customerDetails = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.querySelector('input[type="email"]').value,
+        address: document.querySelector('input[placeholder="Room - Street - Locality"]').value,
+        state: document.querySelector('input[placeholder="Maharashtra"]').value,
+        zip: document.querySelector('input[placeholder="123 456"]').value
+    };
+
+    localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
+
+    // Redirect to payment page
+    window.location.href = 'payment.html';
+    return false;
+}
+
+    </script>
+
+    <script src="script.js"></script>
+    <script src="darkmode.js"></script>
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIOS Assistant - Smart Shopping Helper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .ai-assistant {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .ai-header h1 {
+            font-size: 2.5rem;
+            color: #088178;
+            margin-bottom: 20px;
+        }
+
+        .ai-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #088178;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chat-header i {
+            font-size: 2rem;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .chat-messages {
+            height: 500px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 15px;
+            border-radius: 15px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .message.bot .message-content {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .message.user .message-content {
+            background: #088178;
+            color: #fff;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #088178;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .message.user .message-avatar {
+            background: #fff;
+            color: #088178;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input input:focus {
+            border-color: #088178;
+        }
+
+        .chat-input button {
+            background: #088178;
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #066c65;
+        }
+
+        .suggestions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-chip {
+            background: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .suggestion-chip i {
+            font-size: 0.8rem;
+        }
+
+        .suggestion-chip:hover {
+            background: #088178;
+            color: #fff;
+            border-color: #088178;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 10px;
+            align-items: center;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #088178;
+            border-radius: 50%;
+            animation: typing 1s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-info h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .product-info p {
+            margin: 0;
+            color: #088178;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart {
+            background: #088178;
+            color: #fff;
+        }
+
+        .view-details {
+            background: #f8f9fa;
+            color: #088178;
+            border: 1px solid #088178;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .size-guide {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .size-guide table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .size-guide th,
+        .size-guide td {
+            padding: 8px;
+            border: 1px solid #eee;
+            text-align: center;
+        }
+
+        .review-summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .review-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .review-highlights {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .review-highlight {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .review-highlight i {
+            color: #088178;
+        }
+
+        .price-trend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .price-trend i {
+            color: #28a745;
+        }
+
+        .price-trend.down i {
+            color: #dc3545;
+        }
+
+        .price-history {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .price-history p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <section id="header">
+        <a href="../index.html"><img src="../images/logo.png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../shop.html">Shop</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+                <li><a href="../cart.html">Cart</a></li>
+                <li><a href="../account.html">Account</a></li>
+                <li><a class="active" href="ai.html">AI Assistant</a></li>
+                <li>
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="checkbox">
+                        <label for="checkbox" class="toggle-label">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                            <span class="toggle-ball"></span>
+                        </label>
+                    </div>
+                </li>
+                <li><a href="#" id="close"><img height="25px" src="../images/cross-svgrepo-com.svg" alt=""></a></li>
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i> 
+        </div>
+    </section>
+
+    <!-- AI Assistant Section -->
+    <section class="ai-assistant">
+        <div class="ai-header">
+            <h1>Your Smart Shopping Assistant</h1>
+            <p>Ask me anything about products, get personalized recommendations, and make smarter shopping decisions</p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <i class="fas fa-robot"></i>
+                <h2>RIOS Assistant</h2>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message bot">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        Hello! I'm your RIOS shopping assistant. I can help you:
+                        <ul>
+                            <li>Find and compare products</li>
+                            <li>Get personalized recommendations</li>
+                            <li>Check prices and deals</li>
+                            <li>Read product reviews</li>
+                            <li>Get size recommendations</li>
+                        </ul>
+                        What would you like to know?
+                    </div>
+                </div>
+
+                <div class="suggestions">
+                    <div class="suggestion-chip">
+                        <i class="fas fa-search"></i>
+                        Find summer dresses
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-tags"></i>
+                        Compare prices
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-ruler"></i>
+                        Size recommendations
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-star"></i>
+                        Product reviews
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-percentage"></i>
+                        Best deals
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-shopping-cart"></i>
+                        Shopping tips
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Ask me anything about shopping...">
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section-p1">
+        <div class="col">
+            <img src="../images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address : </strong> Naigaon East, Poman, Maharashtra 401208</p>
+            <p><strong>Phone : </strong> +91 080074 78659</p>
+            <p><strong>Hours : </strong> Mon - Fri : 9:30 AM - 4:40 PM, </p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="follow-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Orders</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col instal">
+            <h4>Install App</h4>
+            <p>From Apple Store Or Google Play</p>
+            <div class="row">
+                <img src="../images/app.jpg" alt="">
+                <img src="../images/play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="../images/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>© 2025, ECW</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced chat functionality
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage('user', message);
+                input.value = '';
+                showTypingIndicator();
+                
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = getAIResponse(message);
+                    addMessage('bot', response);
+                }, 1500);
+            }
+        }
+
+        function addMessage(type, content) {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.innerHTML = type === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = content;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.querySelector('.chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            typingDiv.id = 'typingIndicator';
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function getAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Product search with detailed responses
+            if (lowerMessage.includes('dress') || lowerMessage.includes('clothing')) {
+                return `
+                    Here are some popular dresses you might like:
+                    <div class="product-grid">
+                        <div class="product-card">
+                            <img src="../images/f2.jpg" alt="Summer Dress">
+                            <div class="product-info">
+                                <h4>Floral Summer Dress</h4>
+                                <p>₹1,799</p>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">Add to Cart</button>
+                                    <button class="view-details">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="../images/f3.jpg" alt="Casual Dress">
+                            <div class="product-info">
+                                <h4>Casual Maxi Dress</h4>
+                                <p>₹2,499</p>
+                                <div class="product-actions">
+                                    <button class="add-to-cart">Add to Cart</button>
+                                    <button class="view-details">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggestions">
+                        <div class="suggestion-chip">
+                            <i class="fas fa-search"></i>
+                            Show more dresses
+                        </div>
+                        <div class="suggestion-chip">
+                            <i class="fas fa-tags"></i>
+                            Compare prices
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Price comparison with detailed analysis
+            if (lowerMessage.includes('price') || lowerMessage.includes('compare')) {
+                return `
+                    Let me help you compare prices for similar products:
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Rating</th>
+                            <th>Best Deal</th>
+                        </tr>
+                        <tr>
+                            <td>Floral Summer Dress</td>
+                            <td>₹1,799</td>
+                            <td>4.5 ★</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Casual Maxi Dress</td>
+                            <td>₹2,499</td>
+                            <td>4.2 ★</td>
+                            <td>No</td>
+                        </tr>
+                    </table>
+                    <div class="price-trend">
+                        <i class="fas fa-arrow-down"></i>
+                        Prices are trending down this week
+                    </div>
+                    <div class="price-history">
+                        <p>Historical low: ₹1,599</p>
+                        <p>Average price: ₹2,099</p>
+                        <p>Price trend: Decreasing</p>
+                    </div>
+                `;
+            }
+            
+            // Size recommendations with detailed guide
+            if (lowerMessage.includes('size') || lowerMessage.includes('fit')) {
+                return `
+                    I'll help you find the perfect size! Here's our size guide:
+                    <div class="size-guide">
+                        <table>
+                            <tr>
+                                <th>Size</th>
+                                <th>Chest (cm)</th>
+                                <th>Waist (cm)</th>
+                                <th>Hips (cm)</th>
+                            </tr>
+                            <tr>
+                                <td>S</td>
+                                <td>86-91</td>
+                                <td>71-76</td>
+                                <td>91-96</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>91-96</td>
+                                <td>76-81</td>
+                                <td>96-101</td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>96-101</td>
+                                <td>81-86</td>
+                                <td>101-106</td>
+                            </tr>
+                        </table>
+                    </div>
+                    Please provide your measurements, and I'll recommend the best size for you.
+                `;
+            }
+            
+            // Product reviews with detailed analysis
+            if (lowerMessage.includes('review') || lowerMessage.includes('rating')) {
+                return `
+                    Here's a detailed review analysis:
+                    <div class="review-summary">
+                        <div class="rating-stars">★★★★★</div>
+                        <div class="review-count">4.5 (128 reviews)</div>
+                    </div>
+                    <div class="review-highlights">
+                        <div class="review-highlight">
+                            <i class="fas fa-check-circle"></i>
+                            Great quality and fit
+                        </div>
+                        <div class="review-highlight">
+                            <i class="fas fa-check-circle"></i>
+                            Comfortable fabric
+                        </div>
+                        <div class="review-highlight">
+                            <i class="fas fa-check-circle"></i>
+                            True to size
+                        </div>
+                    </div>
+                    <div class="suggestions">
+                        <div class="suggestion-chip">
+                            <i class="fas fa-comment"></i>
+                            Read full reviews
+                        </div>
+                        <div class="suggestion-chip">
+                            <i class="fas fa-question-circle"></i>
+                            Ask about specific aspects
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Shopping tips and recommendations
+            if (lowerMessage.includes('tip') || lowerMessage.includes('recommend')) {
+                return `
+                    Here are some smart shopping tips:
+                    <ul>
+                        <li>Check price history to find the best time to buy</li>
+                        <li>Compare similar products to get the best value</li>
+                        <li>Read customer reviews for real experiences</li>
+                        <li>Use size guides for accurate fitting</li>
+                        <li>Look for bundle deals to save more</li>
+                    </ul>
+                    Would you like specific tips for any category?
+                `;
+            }
+            
+            // Default response with suggestions
+            return `
+                I'm here to help! Here are some things I can assist you with:
+                <div class="suggestions">
+                    <div class="suggestion-chip">
+                        <i class="fas fa-search"></i>
+                        Find products
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-tags"></i>
+                        Compare prices
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-ruler"></i>
+                        Size guide
+                    </div>
+                    <div class="suggestion-chip">
+                        <i class="fas fa-star"></i>
+                        Read reviews
+                    </div>
+                </div>
+            `;
+        }
+
+        // Add click handlers for suggestion chips
+        document.querySelectorAll('.suggestion-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const input = document.getElementById('userInput');
+                input.value = chip.textContent.trim();
+                sendMessage();
+            });
+        });
+
+        // Add enter key support
+        document.getElementById('userInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+
+    <script src="../script.js"></script>
+    <script src="../darkmode.js"></script>
+    <script src="../change_color.js"></script>
+</body>
+</html> 

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <title>RIOS - Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #checkout-btn {
+  background: none;
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s;
+}
+
+#checkout-btn:hover {
+  background: var(--primary-color);
+  color: var(--text-color);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <a href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a class="active" href="cart.html">Cart</a></li>
+                <li>
+                    <div class="toggle-btn">
+                        <input type="checkbox" id="checkbox">
+                        <label for="checkbox" class="toggle-label">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                            <span class="toggle-ball"></span>
+                        </label>
+                    </div>
+                </li>
+                <a href="#" id="close"><img height="25px" src="images/cross-svgrepo-com.svg" alt=""></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section id="page-header" class="cart-header">
+        <h2>Shopping Cart</h2>
+        <p>Review your items and checkout</p>
+    </section>
+
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Price</td>
+                    <td>Size</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <!-- Cart items will be loaded here by JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <section id="cart-summary" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" placeholder="Enter Coupon Code">
+                <button class="normal">Apply</button>
+            </div>
+            <p class="hint">Try code: UNIVERSAL 2ND YEAR</p>
+        </div>
+
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td id="cart-subtotal">₹0.00</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td id="cart-total"><strong>₹0.00</strong></td>
+                </tr>
+            </table>
+            <!-- <button class="normal" id="checkout-btn">Proceed to Checkout</button>  -->
+            <a class="normal" id="checkout-btn" href="#">Proceed to Checkout</a>
+            <button class="normal clear-cart">Clear Cart</button>
+        </div>
+    </section>
+
+    <section id="empty-cart" class="section-p1" style="display: none; text-align: center;">
+        <i class="fas fa-shopping-cart" style="font-size: 5rem; color: #ccc; margin-bottom: 20px;"></i>
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added any products to your cart yet.</p>
+        <a href="shop.html" class="normal" style="display: inline-block; margin-top: 20px;">Continue Shopping</a>
+    </section>
+
+    <!-- Footer section from your original HTML -->
+    <section id="newsletter" class="section-p1 section-m1">
+        <div class="newstext">
+            <h4>Sign Up For Our Newsletter</h4>
+            <p>Get Exclusive Deals, Discounts, Membership Perks And <span>Special Offers.</span></p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your Email Address">
+            <button class="normal">Sign Up</button>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img src="images/logo.png" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address : </strong> Naigaon East, Poman, Maharashtra 401208</p>
+            <p><strong>Phone : </strong> +91 080074 78659</p>
+            <p><strong>Hours : </strong> Mon - Fri : 9:30 AM - 4:40 PM, </p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="follow-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                    <i class="fab fa-pinterest"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Orders</a>
+            <a href="#">Help</a>
+        </div>
+
+        <div class="col instal">
+            <h4>Install App</h4>
+            <p>From Apple Store Or Google Play</p>
+            <div class="row">
+                <img src="images/app.jpg" alt="">
+                <img src="images/play.jpg" alt="">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="images/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>© 2025, ECW</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="darkmode.js"></script>
+    <script src="chatbot.js"></script>
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Cart page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartSection = document.getElementById('empty-cart');
+            const cartSection = document.getElementById('cart');
+            const cartSummarySection = document.getElementById('cart-summary');
+
+            // Display empty cart message if cart is empty
+            if (cart.length === 0) {
+                emptyCartSection.style.display = 'block';
+                cartSection.style.display = 'none';
+                cartSummarySection.style.display = 'none';
+            } else {
+                renderCartItems();
+                updateCartTotals();
+            }
+
+            // Clear cart button functionality
+            const clearCartBtn = document.querySelector('.clear-cart');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', function () {
+                    localStorage.removeItem('cart');
+                    location.reload();
+                });
+            }
+
+            // Checkout button functionality
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', function () {
+                    alert('Thank you for your order! This is a demo, so no actual checkout will occur.');
+                    // In a real application, you would redirect to a checkout page
+                    // window.location.href = 'checkout.html';
+                });
+            }
+
+            // Function to render cart items
+            function renderCartItems() {
+                cartItemsContainer.innerHTML = '';
+
+                cart.forEach((item, index) => {
+                    // Calculate subtotal for this item
+                    const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                    const subtotal = price * item.quantity;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <a href="#" class="remove-item" data-index="${index}">
+                                <i class="far fa-times-circle"></i>
+                            </a>
+                        </td>
+                        <td><img src="${item.image}" alt="${item.name}"></td>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.size}</td>
+                        <td>
+                            <div class="quantity-control">
+                                <button class="quantity-btn decrease" data-index="${index}">-</button>
+                                <input type="number" value="${item.quantity}" min="1" max="10" data-index="${index}" class="quantity-input">
+                                <button class="quantity-btn increase" data-index="${index}">+</button>
+                            </div>
+                        </td>
+                        <td>₹${subtotal.toFixed(2)}</td>
+                    `;
+
+                    cartItemsContainer.appendChild(row);
+                });
+
+                // Add event listeners to quantity controls and remove buttons
+                addEventListeners();
+            }
+
+            // Function to add event listeners to cart controls
+            function addEventListeners() {
+                // Remove item buttons
+                const removeButtons = document.querySelectorAll('.remove-item');
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const index = parseInt(this.getAttribute('data-index'));
+                        removeCartItem(index);
+                    });
+                });
+
+                // Quantity decrease buttons
+                const decreaseButtons = document.querySelectorAll('.quantity-btn.decrease');
+                decreaseButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        updateItemQuantity(index, -1);
+                    });
+                });
+
+                // Quantity increase buttons
+                const increaseButtons = document.querySelectorAll('.quantity-btn.increase');
+                increaseButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        updateItemQuantity(index, 1);
+                    });
+                });
+
+                // Quantity input fields
+                const quantityInputs = document.querySelectorAll('.quantity-input');
+                quantityInputs.forEach(input => {
+                    input.addEventListener('change', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        const newQuantity = parseInt(this.value);
+                        setItemQuantity(index, newQuantity);
+                    });
+                });
+            }
+
+            // Function to remove an item from cart
+            function removeCartItem(index) {
+                cart.splice(index, 1); // modify the in-memory cart
+                localStorage.setItem('cart', JSON.stringify(cart)); // save it back
+                if (cart.length === 0) {
+                    emptyCartSection.style.display = 'block';
+                    cartSection.style.display = 'none';
+                    cartSummarySection.style.display = 'none';
+                } else {
+                    renderCartItems();
+                }
+                updateCartTotals();
+            }
+
+
+            // Function to update item quantity
+            function updateItemQuantity(index, change) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const newQuantity = cart[index].quantity + change;
+
+                if (newQuantity > 0 && newQuantity <= 10) {
+                    cart[index].quantity = newQuantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCartItems();
+                    updateCartTotals();
+                }
+            }
+
+            // Function to set exact item quantity
+            function setItemQuantity(index, quantity) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                if (quantity > 0 && quantity <= 10) {
+                    cart[index].quantity = quantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartTotals();
+                } else {
+                    // Reset to valid quantity
+                    const inputs = document.querySelectorAll('.quantity-input');
+                    inputs[index].value = cart[index].quantity;
+                }
+            }
+
+            // Function to update cart totals
+            function updateCartTotals() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let subtotal = 0;
+
+                cart.forEach(item => {
+                    const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                    subtotal += price * item.quantity;
+                });
+
+                // Update UI
+                const subtotalElement = document.getElementById('cart-subtotal');
+                const totalElement = document.getElementById('cart-total');
+
+                if (subtotalElement && totalElement) {
+                    subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+                    totalElement.textContent = `₹${subtotal.toFixed(2)}`;
+                }
+            }
+
+            // Add coupon functionality
+            const couponButton = document.querySelector('#coupon button');
+            const couponInput = document.querySelector('#coupon input');
+
+            if (couponButton && couponInput) {
+                couponButton.addEventListener('click', function () {
+                    const couponCode = couponInput.value.trim();
+
+                    if (couponCode.toUpperCase() === 'UNIVERSAL 2ND YEAR') {
+                        // Apply 10% discount
+                        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                        let subtotal = 0;
+
+                        cart.forEach(item => {
+                            const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                            subtotal += price * item.quantity;
+                        });
+
+                        const discount = subtotal * 0.1;
+                        const discountedTotal = subtotal - discount;
+
+                        const subtotalElement = document.getElementById('cart-subtotal');
+                        const totalElement = document.getElementById('cart-total');
+
+                        if (subtotalElement && totalElement) {
+                            subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+                            totalElement.innerHTML = `<strong>₹${discountedTotal.toFixed(2)}</strong> <span style="color: green;">(10% off)</span>`;
+                        }
+
+                        alert('Coupon applied successfully! You received a 10% discount.');
+                    } else if (couponCode !== '') {
+                        alert('Invalid coupon code. Please try again.');
+                    }
+                });
+            }
+        });
+
+        const checkoutBtn = document.getElementById('checkout-btn');
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                if (cart.length === 0) {
+                    alert('Cart is empty!');
+                    return;
+                }
+
+                // Save cartItems separately for checkout/payment
+                localStorage.setItem('cartItems', JSON.stringify(cart));
+
+                // Also store subtotal
+                let subtotal = 0;
+                cart.forEach(item => {
+                    const price = parseFloat(item.price.replace(/[^\d.]/g, ''));
+                    subtotal += price * item.quantity;
+                });
+                localStorage.setItem('cartSubtotal', subtotal);
+
+                // Now move to checkout
+                window.location.href = 'checkout.html';
+            });
+        }
+
+    </script>
+</body>
+
+</html>

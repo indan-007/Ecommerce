@@ -1,0 +1,176 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    min-height: 100vh;
+    background: #E3E6F3;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .container {
+    background: #1a1a1a;
+}
+
+.container form{
+    padding: 20px;
+    width: 700px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .container form {
+    background: #2d2d2d;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.container form .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.container form .row .column{
+    flex: 1 1 250px;
+}
+
+.container form .row .column .title{
+    font-size: 20px;
+    color: #1a1a1a;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.dark-mode .container form .row .column .title {
+    color: #fff;
+}
+
+.container form .row .column .input-box{
+    margin: 15px 0;
+}
+
+.container form .row .column .input-box span{
+    margin-bottom: 10px;
+    display: block;
+    color: #465b52;
+    transition: color 0.3s ease;
+}
+
+.dark-mode .container form .row .column .input-box span {
+    color: #b7b7b7;
+}
+
+.container form .row .column .input-box input{
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    padding: 10px 15px;
+    font-size: 15px;
+    text-transform: none;
+    border-radius: 4px;
+    background: #fff;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+}
+
+.dark-mode .container form .row .column .input-box input {
+    background: #3d3d3d;
+    border-color: #4d4d4d;
+    color: #fff;
+}
+
+.container form .row .column .input-box input:focus{
+    border: 1px solid #088178;
+}
+
+.dark-mode .container form .row .column .input-box input:focus {
+    border-color: #088178;
+}
+
+.container form .row .column .flex{
+    display: flex;
+    gap: 15px;
+}
+
+.container form .row .column .flex .input-box{
+    margin-top: 5px;
+}
+
+.container form .row .column .input-box img{
+    height: 34px;
+    margin-top: 5px;
+    filter: drop-shadow(0 0 1px #000);
+    transition: filter 0.3s ease;
+}
+
+.dark-mode .container form .row .column .input-box img {
+    filter: drop-shadow(0 0 1px #fff) brightness(0.9);
+}
+
+.container form .submit-btn{
+    width: 100%;
+    padding: 12px;
+    font-size: 17px;
+    background: #088178;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.container form .submit-btn:hover{
+    background: #006963;
+}
+
+.button{
+    display: inline-block;
+    margin: 30px 0;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color: #fff;
+    background: #088178;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+}
+
+.button:hover {
+    background: #006963;
+}
+
+/* Dark mode specific hover states */
+.dark-mode .button:hover,
+.dark-mode .container form .submit-btn:hover {
+    background: #006963;
+    box-shadow: 0 0 15px rgba(8, 129, 120, 0.3);
+}
+
+/* Placeholder color adjustments */
+.dark-mode .container form .row .column .input-box input::placeholder {
+    color: #888;
+}
+
+/* Number input spinner color adjustment for dark mode */
+.dark-mode .container form .row .column .input-box input[type="number"]::-webkit-inner-spin-button,
+.dark-mode .container form .row .column .input-box input[type="number"]::-webkit-outer-spin-button {
+    filter: invert(1);
+} 

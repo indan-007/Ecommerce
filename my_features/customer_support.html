@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support | RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(145deg, #2196F3, #1976D2);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .back-button:hover {
+            background: rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .support-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .support-icon {
+            font-size: 2.5rem;
+            color: #2196F3;
+            margin-bottom: 20px;
+        }
+        
+        .support-card h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .support-card p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .support-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .support-button:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        
+        .contact-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .contact-header h2 {
+            color: #1976D2;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-info {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 2rem;
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        
+        .contact-info p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .contact-info a {
+            color: #2196F3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: #1976D2;
+        }
+        
+        .faq-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #1976D2;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #2196F3;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .faq-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+        
+        .faq-question h3 {
+            color: #1976D2;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-card.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        .faq-icon {
+            color: #2196F3;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-card.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .support-form {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h2 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        
+        .response-time {
+            text-align: center;
+            color: #666;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background: #1976D2;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 40px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .support-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-section,
+            .support-form {
+                padding: 30px 20px;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+        <div class="header-content">
+            <div class="icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h1>Customer Support</h1>
+            <p class="subtitle">We're here to help! Choose from multiple support options to get assistance with your questions and concerns.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="support-options">
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>24/7 Phone Support</h3>
+                <p>Get immediate assistance from our dedicated support team. Available round the clock for your convenience.</p>
+                <a href="tel:+1234567890" class="support-button">Call Now</a>
+            </div>
+            
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Support</h3>
+                <p>Send us your questions and we'll respond within 24 hours. Perfect for non-urgent inquiries.</p>
+                <a href="mailto:support@rios.com" class="support-button">Email Us</a>
+            </div>
+            
+            <div class="support-card">
+                <div class="support-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Live Chat</h3>
+                <p>Chat with our support team in real-time. Get instant answers to your questions.</p>
+                <a href="#" class="support-button">Start Chat</a>
+            </div>
+        </div>
+        
+        <div class="contact-section">
+            <div class="contact-header">
+                <h2>Contact Information</h2>
+                <p>Choose the most convenient way to reach us</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Phone</h3>
+                    <p>+91 93456 7890</p>
+                    <p>Mon-Sun: 24/7</p>
+                    <a href="tel:+1234567890">Call Now</a>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>support@rios.com</p>
+                    <p>Response within 24h</p>
+                    <a href="mailto:support@rios.com">Send Email</a>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Office</h3>
+                    <p>123 Business Street</p>
+                    <p>Mumbai, Maharashtra 400001</p>
+                    <a href="#">Get Directions</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        
+        <div class="faq-section">
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <div class="faq-question">
+                        <h3>How do I track my order?</h3>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can track your order by logging into your account and clicking on the "Order History" tab. Enter your order number and you'll see the current status and tracking information.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-card">
+                    <div class="faq-question">
+                        <h3>What is your return policy?</h3>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day return policy for all unused items in their original packaging. Simply initiate a return through your account, print the return label, and send the item back to us.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-card">
+                    <div class="faq-question">
+                        <h3>How do I change my shipping address?</h3>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can update your shipping address in your account settings. If your order hasn't been shipped yet, you can also modify the shipping address from the order details page.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-card">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and various digital payment methods. All payments are processed securely through our payment partners.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="support-form">
+            <div class="form-header">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+            </div>
+            
+            <form id="supportForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="order">Order Related</option>
+                        <option value="shipping">Shipping</option>
+                        <option value="returns">Returns</option>
+                        <option value="product">Product Information</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">Send Message</button>
+                <p class="response-time">We typically respond within 24 hours during business days.</p>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 RIOS E-Commerce. Our support team is here to help you with any questions or concerns.</p>
+    </footer>
+    
+    <script>
+        // FAQ Toggle
+        const faqCards = document.querySelectorAll('.faq-card');
+        
+        faqCards.forEach(card => {
+            const question = card.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = card.classList.contains('active');
+                
+                // Close all cards
+                faqCards.forEach(c => c.classList.remove('active'));
+                
+                // Open clicked card if it wasn't active
+                if (!isActive) {
+                    card.classList.add('active');
+                }
+            });
+        });
+        
+        // Form Submission
+        const supportForm = document.getElementById('supportForm');
+        
+        supportForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(supportForm);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to your server
+            console.log('Form submitted:', data);
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            supportForm.reset();
+        });
+    </script>
+</body>
+</html> 

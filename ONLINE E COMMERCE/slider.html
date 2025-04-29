@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; }
+        .slider-container { width: 80%; margin: 50px auto; overflow: hidden; position: relative; }
+        .slider { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; height: auto; }
+        .prev, .next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5); color: white; border: none;
+            padding: 10px; cursor: pointer; font-size: 18px;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide"><img src="https://via.placeholder.com/800x400/ff7f7f/333333?text=Image+1" alt="Image 1"></div>
+            <div class="slide"><img src="https://via.placeholder.com/800x400/77ff7f/333333?text=Image+2" alt="Image 2"></div>
+            <div class="slide"><img src="https://via.placeholder.com/800x400/777fff/333333?text=Image+3" alt="Image 3"></div>
+        </div>
+        <button class="prev" onclick="prevSlide()">&#10094;</button>
+        <button class="next" onclick="nextSlide()">&#10095;</button>
+    </div>
+    
+    <script>
+        let index = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slider = document.querySelector('.slider');
+
+        function showSlide(n) {
+            if (n >= slides.length) index = 0;
+            else if (n < 0) index = slides.length - 1;
+            else index = n;
+            slider.style.transform = `translateX(${-index * 100}%)`;
+        }
+
+        function nextSlide() { showSlide(index + 1); }
+        function prevSlide() { showSlide(index - 1); }
+
+        setInterval(nextSlide, 3000); // Auto-slide every 3 seconds
+    </script>
+</body>
+</html>

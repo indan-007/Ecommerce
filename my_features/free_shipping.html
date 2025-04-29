@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Shipping - Terms and Conditions | RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(145deg, #6b46c1, #553c9a);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,160L48,176C96,192,192,224,288,208C384,192,480,128,576,117.3C672,107,768,149,864,154.7C960,160,1056,128,1152,117.3C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-position: bottom;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .back-button:hover {
+            background: rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .shipping-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #6b46c1;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #553c9a;
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background: #f9f4ff;
+            border-left: 4px solid #6b46c1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .highlight-box h4 {
+            color: #6b46c1;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .shipping-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .shipping-table th,
+        .shipping-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .shipping-table th {
+            background-color: #f9f4ff;
+            color: #6b46c1;
+            font-weight: 600;
+        }
+        
+        .shipping-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .shipping-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 40px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+        <div class="header-content">
+            <div class="shipping-icon">
+                <i class="fas fa-shipping-fast"></i>
+            </div>
+            <h1>Free Shipping Terms & Conditions</h1>
+            <p class="subtitle">Learn about our shipping policies, delivery timeframes, and eligibility requirements for free shipping across our wide range of products.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content-section">
+            <h2>Free Shipping Policy</h2>
+            <p>At RIOS, we strive to provide you with the best shopping experience possible. As part of this commitment, we offer free shipping on qualifying orders to help you save money while enjoying our premium products.</p>
+            
+            <div class="highlight-box">
+                <h4>Free Shipping Eligibility</h4>
+                <p>All orders with a total value of ₹999 or more qualify for FREE standard shipping across India.</p>
+            </div>
+            
+            <h3>Standard Shipping (Free for orders ₹999+)</h3>
+            <ul>
+                <li><strong>Delivery Time:</strong> 4-7 business days for most locations in India</li>
+                <li><strong>Tracking:</strong> Full tracking available through your account dashboard</li>
+                <li><strong>Coverage:</strong> Available for 18,000+ PIN codes across India</li>
+                <li><strong>Handling Time:</strong> Orders are typically processed within 24-48 hours</li>
+            </ul>
+            
+            <p>For orders below ₹999, a standard shipping charge of ₹79 will be applied at checkout.</p>
+            
+            <h3>Shipping Rates for Orders Below ₹999</h3>
+            <table class="shipping-table">
+                <thead>
+                    <tr>
+                        <th>Order Value</th>
+                        <th>Shipping Fee</th>
+                        <th>Estimated Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Below ₹499</td>
+                        <td>₹99</td>
+                        <td>5-8 business days</td>
+                    </tr>
+                    <tr>
+                        <td>₹500 - ₹998</td>
+                        <td>₹79</td>
+                        <td>4-7 business days</td>
+                    </tr>
+                    <tr>
+                        <td>₹999 and above</td>
+                        <td>FREE</td>
+                        <td>4-7 business days</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="content-section">
+            <h2>Express Shipping Options</h2>
+            <p>Need your order faster? We offer premium express shipping options at competitive rates:</p>
+            
+            <h3>Priority Shipping</h3>
+            <ul>
+                <li><strong>Delivery Time:</strong> 2-3 business days</li>
+                <li><strong>Fee:</strong> ₹149 (₹99 for orders above ₹1,999)</li>
+                <li><strong>Coverage:</strong> All major cities and over 10,000 PIN codes</li>
+            </ul>
+            
+            <h3>Next-Day Delivery</h3>
+            <ul>
+                <li><strong>Delivery Time:</strong> Next business day (for orders placed before 2 PM)</li>
+                <li><strong>Fee:</strong> ₹249 (₹199 for orders above ₹2,999)</li>
+                <li><strong>Coverage:</strong> Available in select metro cities (Delhi NCR, Mumbai, Bangalore, Chennai, Hyderabad, Kolkata)</li>
+                <li><strong>Requirements:</strong> Order must be placed before 2 PM on a business day</li>
+            </ul>
+        </div>
+        
+        <div class="content-section">
+            <h2>International Shipping</h2>
+            <p>We currently ship to over 30 countries worldwide. International shipping rates and delivery times vary by destination:</p>
+            
+            <table class="shipping-table">
+                <thead>
+                    <tr>
+                        <th>Region</th>
+                        <th>Standard Shipping</th>
+                        <th>Express Shipping</th>
+                        <th>Estimated Delivery</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>USA & Canada</td>
+                        <td>₹1,299</td>
+                        <td>₹2,499</td>
+                        <td>7-14 days (Standard) / 3-5 days (Express)</td>
+                    </tr>
+                    <tr>
+                        <td>UK & Europe</td>
+                        <td>₹1,199</td>
+                        <td>₹2,299</td>
+                        <td>7-14 days (Standard) / 3-5 days (Express)</td>
+                    </tr>
+                    <tr>
+                        <td>Middle East</td>
+                        <td>₹1,099</td>
+                        <td>₹1,999</td>
+                        <td>6-12 days (Standard) / 3-4 days (Express)</td>
+                    </tr>
+                    <tr>
+                        <td>Asia Pacific</td>
+                        <td>₹899</td>
+                        <td>₹1,799</td>
+                        <td>5-10 days (Standard) / 2-4 days (Express)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight-box">
+                <h4>International Free Shipping</h4>
+                <p>Orders above ₹15,000 qualify for FREE standard international shipping to all supported countries.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Terms & Conditions</h2>
+            
+            <h3>Exclusions from Free Shipping</h3>
+            <p>Certain products are excluded from our free shipping offer due to their size, weight, or special handling requirements:</p>
+            <ul>
+                <li>Oversized items (furniture, large appliances)</li>
+                <li>Items requiring special handling or refrigeration</li>
+                <li>Hazardous materials</li>
+                <li>Products shipped directly from third-party sellers</li>
+            </ul>
+            
+            <h3>Delivery Areas</h3>
+            <p>We deliver to most locations across India. However, some remote areas may experience longer delivery times or additional shipping charges. You can check if your location is serviceable during checkout.</p>
+            
+            <h3>Order Tracking</h3>
+            <p>All shipments include tracking information that will be shared via email and SMS once your order is dispatched. You can also track your order in real-time through your account dashboard.</p>
+            
+            <h3>Shipping Delays</h3>
+            <p>While we strive to meet our delivery estimates, delays may occur due to:</p>
+            <ul>
+                <li>Adverse weather conditions</li>
+                <li>Natural disasters</li>
+                <li>Holidays and peak seasons</li>
+                <li>Customs clearance (for international orders)</li>
+                <li>Incorrect delivery information provided</li>
+            </ul>
+            
+            <h3>Returns and Exchanges</h3>
+            <p>If you need to return or exchange an item, please refer to our <a href="#" style="color: #6b46c1;">Return Policy</a> for detailed instructions. Free return shipping is provided for most items within 15 days of delivery.</p>
+        </div>
+        
+        <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <h3>When will my order ship?</h3>
+            <p>Orders are typically processed within 24-48 hours of payment confirmation. You will receive a confirmation email with tracking information once your order ships.</p>
+            
+            <h3>How do I track my order?</h3>
+            <p>You can track your order by logging into your account and navigating to "Order History" or by using the tracking link sent to your registered email and phone number.</p>
+            
+            <h3>Do you ship to PO boxes?</h3>
+            <p>Yes, we ship to PO boxes for standard shipping options. However, express shipping services may require a physical street address.</p>
+            
+            <h3>What if I'm not available to receive my delivery?</h3>
+            <p>Our delivery partners will attempt delivery up to 3 times. If you're unavailable, they will leave a delivery attempt notification with instructions for rescheduling or picking up your package.</p>
+            
+            <h3>Are there any hidden charges?</h3>
+            <p>No. All applicable shipping charges are transparently displayed at checkout before you complete your purchase. For international orders, please note that customs duties and taxes are not included in our shipping fees and may be collected upon delivery.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

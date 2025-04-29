@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Order - Product Categories | RIOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(145deg, #38b2ac, #2c7a7b);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,122.7C96,149,192,203,288,202.7C384,203,480,149,576,149.3C672,149,768,203,864,218.7C960,235,1056,213,1152,186.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button i {
+            margin-right: 5px;
+        }
+        
+        .back-button:hover {
+            background: rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .intro-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .intro-section h2 {
+            color: #38b2ac;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .intro-section p {
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0 40px;
+        }
+        
+        .category-nav a {
+            padding: 8px 15px;
+            background: #f0f9f8;
+            color: #2c7a7b;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-nav a:hover {
+            background: #38b2ac;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .category-section {
+            margin-bottom: 50px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: #e6f7f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #38b2ac;
+            font-size: 1.5rem;
+        }
+        
+        .category-title {
+            font-size: 1.6rem;
+            color: #2c7a7b;
+            margin: 0;
+        }
+        
+        .category-description {
+            margin-bottom: 25px;
+        }
+        
+        .subcategories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .subcategory-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .subcategory-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .subcategory-content {
+            padding: 15px;
+        }
+        
+        .subcategory-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .subcategory-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 12px;
+        }
+        
+        .subcategory-stats span {
+            display: flex;
+            align-items: center;
+        }
+        
+        .subcategory-stats i {
+            font-size: 0.9rem;
+            margin-right: 5px;
+        }
+        
+        .subcategory-card a {
+            display: inline-block;
+            padding: 6px 15px;
+            background: #e6f7f5;
+            color: #38b2ac;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .subcategory-card a:hover {
+            background: #38b2ac;
+            color: white;
+        }
+        
+        .view-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .view-more-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #38b2ac;
+            color: #38b2ac;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .view-more-btn i {
+            margin-left: 8px;
+        }
+        
+        .view-more-btn:hover {
+            background: #38b2ac;
+            color: white;
+        }
+        
+        .featured-products {
+            margin-top: 50px;
+            border-top: 2px dashed #e6f7f5;
+            padding-top: 50px;
+        }
+        
+        .featured-title {
+            text-align: center;
+            color: #2c7a7b;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+        
+        .featured-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 10px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-category {
+            font-size: 0.8rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #38b2ac;
+        }
+        
+        .original-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .discount {
+            font-size: 0.85rem;
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .add-to-cart {
+            flex-grow: 1;
+            padding: 8px 15px;
+            background: #38b2ac;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart:hover {
+            background: #2c7a7b;
+        }
+        
+        .wishlist-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            background: #f0f9f8;
+            border: none;
+            color: #777;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .wishlist-btn:hover {
+            background: #ffe3e3;
+            color: #ff6b6b;
+        }
+        
+        footer {
+            background: #2c7a7b;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        footer p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header {
+                padding: 40px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .intro-section {
+                padding: 25px;
+            }
+            
+            .subcategories {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .featured-items {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-container">
+            <a href="../index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+        <div class="header-content">
+            <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h1>Online Order</h1>
+            <p class="subtitle">Explore our extensive product catalog with thousands of items across multiple categories, all available for convenient online ordering.</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="intro-section">
+            <h2>Easy and Convenient Online Shopping</h2>
+            <p>At RIOS, we offer a seamless shopping experience with our extensive catalog of products. Browse through our diverse categories, find the perfect items, and place your order with just a few clicks.</p>
+            
+            <div class="category-nav">
+                <a href="#clothing"><i class="fas fa-tshirt"></i> Clothing</a>
+                <a href="#electronics"><i class="fas fa-laptop"></i> Electronics</a>
+                <a href="#home"><i class="fas fa-home"></i> Home & Living</a>
+                <a href="#beauty"><i class="fas fa-spa"></i> Beauty</a>
+                <a href="#sports"><i class="fas fa-baseball-ball"></i> Sports</a>
+                <a href="#books"><i class="fas fa-book"></i> Books</a>
+                <a href="#toys"><i class="fas fa-gamepad"></i> Toys & Games</a>
+                <a href="#jewelry"><i class="fas fa-gem"></i> Jewelry</a>
+            </div>
+        </div>
+        
+        <!-- Clothing Category -->
+        <div id="clothing" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <h2 class="category-title">Clothing & Fashion</h2>
+            </div>
+            
+            <p class="category-description">Discover the latest trends and timeless classics in our extensive clothing collection. From casual wear to formal attire, we offer styles for every occasion and preference.</p>
+            
+            <div class="subcategories">
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Women's+Fashion" alt="Women's Fashion" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Women's Fashion</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-tshirt"></i> 1200+ items</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Men's+Fashion" alt="Men's Fashion" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Men's Fashion</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-tshirt"></i> 950+ items</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Kids+Clothing" alt="Kids Clothing" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Kids Clothing</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-tshirt"></i> 800+ items</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Ethnic+Wear" alt="Ethnic Wear" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Ethnic Wear</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-tshirt"></i> 650+ items</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-more">
+                <a href="#" class="view-more-btn">View All Clothing Categories <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Electronics Category -->
+        <div id="electronics" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h2 class="category-title">Electronics & Gadgets</h2>
+            </div>
+            
+            <p class="category-description">Explore cutting-edge technology and smart devices from top brands. From smartphones to home appliances, find the perfect tech to enhance your lifestyle.</p>
+            
+            <div class="subcategories">
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Smartphones" alt="Smartphones" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Smartphones</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-mobile-alt"></i> 200+ models</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Laptops" alt="Laptops" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Laptops & Computers</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-laptop"></i> 150+ models</span>
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Audio" alt="Audio Devices" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Audio Devices</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-headphones"></i> 300+ items</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Smart+Home" alt="Smart Home" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Smart Home</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-home"></i> 180+ items</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-more">
+                <a href="#" class="view-more-btn">View All Electronics Categories <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Home & Living Category -->
+        <div id="home" class="category-section">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h2 class="category-title">Home & Living</h2>
+            </div>
+            
+            <p class="category-description">Transform your living space with our extensive collection of home decor, furniture, kitchenware, and more. Find everything you need to create your dream home.</p>
+            
+            <div class="subcategories">
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Furniture" alt="Furniture" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Furniture</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-couch"></i> 500+ items</span>
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Kitchen" alt="Kitchen & Dining" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Kitchen & Dining</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-utensils"></i> 700+ items</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Home+Decor" alt="Home Decor" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Home Decor</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-paint-roller"></i> 850+ items</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+                
+                <div class="subcategory-card">
+                    <!-- <img src="https://via.placeholder.com/300x180?text=Bedding" alt="Bedding & Bath" class="subcategory-img"> -->
+                    <div class="subcategory-content">
+                        <h3 class="subcategory-title">Bedding & Bath</h3>
+                        <div class="subcategory-stats">
+                            <span><i class="fas fa-bed"></i> 420+ items</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="#">Explore Collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="view-more">
+                <a href="#" class="view-more-btn">View All Home & Living Categories <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Featured Products -->
+        <div class="featured-products">
+            <h2 class="featured-title">Featured Products</h2>
+            
+            <div class="featured-items">
+                <div class="product-card">
+                    <div class="product-badge">Sale</div>
+                    <!-- <img src="https://via.placeholder.com/300x200?text=Product+1" alt="Featured Product" class="product-img"> -->
+                    <div class="product-content">
+                        <div class="product-category">Women's Fashion</div>
+                        <h3 class="product-title">Floral Maxi Dress</h3>
+                        <div class="product-price">
+                            <span class="current-price">₹2,999</span>
+                            <span class="original-price">₹4,500</span>
+                            <span class="discount">33% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">New</div>
+                    <!-- <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Featured Product" class="product-img"> -->
+                    <div class="product-content">
+                        <div class="product-category">Electronics</div>
+                        <h3 class="product-title">Smart Bluetooth Earbuds</h3>
+                        <div class="product-price">
+                            <span class="current-price">₹4,499</span>
+                            <span class="original-price">₹5,999</span>
+                            <span class="discount">25% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <!-- <img src="https://via.placeholder.com/300x200?text=Product+3" alt="Featured Product" class="product-img"> -->
+                    <div class="product-content">
+                        <div class="product-category">Men's Fashion</div>
+                        <h3 class="product-title">Classic Black Suit</h3>
+                        <div class="product-price">
+                            <span class="current-price">₹9,999</span>
+                            <span class="original-price">₹12,500</span>
+                            <span class="discount">20% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-badge">Bestseller</div>
+                    <!-- <img src="https://via.placeholder.com/300x200?text=Product+4" alt="Featured Product" class="product-img"> -->
+                    <div class="product-content">
+                        <div class="product-category">Home Decor</div>
+                        <h3 class="product-title">Scented Candle Set</h3>
+                        <div class="product-price">
+                            <span class="current-price">₹1,299</span>
+                            <span class="original-price">₹1,999</span>
+                            <span class="discount">35% OFF</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 RIOS E-Commerce. All online orders are processed securely and fulfilled promptly. Delivery times may vary based on location and product availability.</p>
+    </footer>
+    
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add to cart animation
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-check"></i> Added';
+                this.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                    this.style.background = '#38b2ac';
+                }, 2000);
+            });
+        });
+        
+        // Wishlist toggle
+        const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.replace('far', 'fas');
+                    this.style.background = '#ffe3e3';
+                    this.style.color = '#ff6b6b';
+                } else {
+                    icon.classList.replace('fas', 'far');
+                    this.style.background = '#f0f9f8';
+                    this.style.color = '#777';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
